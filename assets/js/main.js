@@ -635,6 +635,7 @@ function initAnimations() {
   });
 
   initEye();
+  initVault();
   initStats();
   initSvcx();
 
@@ -789,6 +790,86 @@ function initEye() {
     setTimeout(blink, 3800 + Math.random() * 3200);
   };
   setTimeout(blink, 3500);
+}
+
+/* =================================================================
+   01 — Schutz-Dreieck: dein Problem in der Mitte, Fragen von außen prallen ab
+   ================================================================= */
+function initVault() {
+  const svg = $("#vaultSvg");
+  if (!svg) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
+  const A = [400, 70], B = [128, 540], C = [672, 540], O = [400, 383];
+  const P = [A, B, C];
+  const gProbe = $(".vt-probes", svg), gEdge = $(".vt-edges", svg);
+  const edges = [[A, B], [B, C], [C, A]].map(([p, q]) => mk("line", { x1: p[0], y1: p[1], x2: q[0], y2: q[1], class: "vt-edge" }, gEdge));
+  const fill = $(".vt-fill", svg), core = $(".vt-core", svg), halo = $$(".vt-halo", svg), nodes = $$(".vt-node", svg), lab = $(".vt-label", svg);
+
+  const final = () => { gsap.set(edges, { strokeDashoffset: 0 }); gsap.set([fill, core, lab, ...nodes], { opacity: 1, scale: 1 }); };
+  edges.forEach((l) => { const L = Math.hypot(l.x2.baseVal.value - l.x1.baseVal.value, l.y2.baseVal.value - l.y1.baseVal.value); l.style.strokeDasharray = L; l.style.strokeDashoffset = L; });
+  if (!hasGSAP || reduceMotion) { edges.forEach((l) => (l.style.strokeDashoffset = 0)); [fill, core, lab, ...nodes].forEach((e) => (e.style.opacity = 1)); return; }
+
+  const halos = $(".vt-halos", svg), cap = $(".vt-cap", svg), corners = $$(".vt-corner", svg);
+  gsap.set([fill, lab, halos, cap, ...corners, ...nodes], { opacity: 0 });
+  gsap.set(nodes, { scale: 0, transformOrigin: "center" });
+  gsap.set(core, { opacity: 0, attr: { cx: -40 } });
+  let ready = false, inView = false;
+  const intro = gsap.timeline({ paused: true, onComplete: () => (ready = true) })
+    .to(core, { opacity: 1, duration: .3 })
+    .to(core, { attr: { cx: O[0] }, duration: 1.4, ease: "power3.out" }, 0)
+    .to(edges, { strokeDashoffset: 0, duration: 1.1, stagger: .12, ease: "power2.inOut" }, .9)
+    .to(nodes, { opacity: 1, scale: 1, duration: .5, stagger: .1, ease: "back.out(2)" }, 1.8)
+    .to(fill, { opacity: 1, duration: 1 }, 1.9)
+    .to([lab, halos], { opacity: 1, duration: .6 }, 2.2)
+    .to(corners, { opacity: 1, duration: .6, stagger: .12 }, 2)
+    .to(cap, { opacity: 1, duration: .8 }, 2.6);
+  ScrollTrigger.create({ trigger: svg, start: "top 75%", once: true, onEnter: () => intro.play() });
+  ScrollTrigger.create({ trigger: svg, start: "top bottom", end: "bottom top", onToggle: (s) => (inView = s.isActive) });
+  void final;
+
+  // Problem atmet
+  halo.forEach((h, i) => gsap.fromTo(h, { attr: { r: 16 }, opacity: .5 }, { attr: { r: 60 }, opacity: 0, duration: 3.2, ease: "power1.out", repeat: -1, delay: i * 1.6 }));
+
+  // Fragen von außen
+  const QS = ["Wer?", "Kunde?", "Name?", "Wie viel?", "Worum geht's?", "Für wen?", "Was genau?", "Wer noch?"];
+  const hit = (s, d) => { // Strahl s→Mitte trifft Kante?
+    let best = null;
+    edges.forEach((l, i) => {
+      const [p, q] = [P[i], P[(i + 1) % 3]];
+      const r = [d[0] - s[0], d[1] - s[1]], e = [q[0] - p[0], q[1] - p[1]];
+      const den = r[0] * e[1] - r[1] * e[0]; if (!den) return;
+      const t = ((p[0] - s[0]) * e[1] - (p[1] - s[1]) * e[0]) / den, u = ((p[0] - s[0]) * r[1] - (p[1] - s[1]) * r[0]) / den;
+      if (t > 0 && t < 1 && u >= 0 && u <= 1 && (!best || t < best.t)) best = { t, i, x: s[0] + r[0] * t, y: s[1] + r[1] * t };
+    });
+    return best;
+  };
+  const probe = () => {
+    if (!ready || !inView || document.hidden) return;
+    const side = (Math.random() * 3) | 0; // links, rechts, oben
+    const s = side === 0 ? [-10, 60 + Math.random() * 500] : side === 1 ? [810, 60 + Math.random() * 500] : [60 + Math.random() * 680, -10];
+    const h = hit(s, O); if (!h) return;
+    const g = mk("g", { class: "vt-q" }, gProbe);
+    const trail = mk("line", { x1: s[0], y1: s[1], x2: s[0], y2: s[1], class: "vt-trail" }, g);
+    const dot = mk("circle", { cx: s[0], cy: s[1], r: 4.5, class: "vt-dot" }, g);
+    const txt = mk("text", { x: s[0], y: s[1] - 12, class: "vt-qt", "text-anchor": side === 1 ? "end" : "start" }, g);
+    txt.textContent = QS[(Math.random() * QS.length) | 0];
+    const pos = { x: s[0], y: s[1] };
+    const upd = () => { dot.setAttribute("cx", pos.x); dot.setAttribute("cy", pos.y); trail.setAttribute("x2", pos.x); trail.setAttribute("y2", pos.y); txt.setAttribute("x", pos.x + (side === 1 ? -10 : 10)); txt.setAttribute("y", pos.y - 12); };
+    const back = [s[0] + (h.x - s[0]) * .82, s[1] + (h.y - s[1]) * .82];
+    const ring = mk("circle", { cx: h.x, cy: h.y, r: 4, class: "vt-ripple", opacity: 0 }, gProbe);
+    gsap.timeline({ onComplete: () => { g.remove(); ring.remove(); } })
+      .to(pos, { x: h.x, y: h.y, duration: 2.2, ease: "power1.in", onUpdate: upd })
+      .add(() => edges[h.i].classList.add("is-hit"))
+      .to(ring, { attr: { r: 26 }, opacity: 0, duration: .9, ease: "power2.out", startAt: { opacity: .9 } })
+      .to(pos, { x: back[0], y: back[1], duration: .8, ease: "power2.out", onUpdate: upd }, "<")
+      .to(g, { opacity: 0, duration: .7 }, "<.1")
+      .add(() => edges[h.i].classList.remove("is-hit"), "-=.2");
+  };
+  setInterval(probe, 1500);
+  // die drei Ecken halten nacheinander kurz Wache
+  let k = 0;
+  setInterval(() => { if (!ready || !inView) return; const n = nodes[k++ % 3]; gsap.fromTo(n, { scale: 1 }, { scale: 1.35, duration: .35, yoyo: true, repeat: 1, ease: "power1.inOut" }); }, 2200);
 }
 
 /* =================================================================

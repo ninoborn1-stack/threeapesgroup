@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css?v=22" />
+  <link rel="stylesheet" href="assets/css/style.css?v=24" />
 </head>
 <body class="is-loading">
   <div class="pt" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -90,7 +90,7 @@
     </section>
 
 
-    <!-- MANIFEST — vier Sätze, ein Auge -->
+    <!-- MANIFEST — vier Sätze, ein Schutz-Dreieck -->
     <section class="manifest manifest--calm" id="manifest">
       <div class="manifest__pin">
         <div class="manifest__grid">
@@ -104,35 +104,20 @@
             </ol>
           </div>
           <div class="manifest__visual">
-            <svg viewBox="100 0 800 600" id="eyeSvg" aria-hidden="true">
+            <svg viewBox="40 20 720 610" id="vaultSvg" aria-hidden="true">
               <defs>
-                <clipPath id="eyeClip"><path id="eyeClipShape" d="M170 300 Q500 300 830 300 Q500 300 170 300 Z" /></clipPath>
-                <radialGradient id="scleraGrad" cx="50%" cy="46%" r="58%">
-                  <stop offset="50%" stop-color="#eef1ef" /><stop offset="85%" stop-color="#b9c1be" /><stop offset="100%" stop-color="#7d8784" />
-                </radialGradient>
-                <radialGradient id="irisGrad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="#012B1D" /><stop offset="38%" stop-color="#015c3a" /><stop offset="70%" stop-color="#01B36C" /><stop offset="100%" stop-color="#013a26" />
-                </radialGradient>
-                <linearGradient id="lidShadow" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#011710" stop-opacity=".55" /><stop offset="100%" stop-color="#011710" stop-opacity="0" />
-                </linearGradient>
+                <radialGradient id="vtGlow" cx="50%" cy="66%" r="58%"><stop offset="0%" stop-color="#01B36C" stop-opacity=".24" /><stop offset="100%" stop-color="#01B36C" stop-opacity="0" /></radialGradient>
               </defs>
-              <g class="mv-eye">
-              <g clip-path="url(#eyeClip)">
-                <rect x="100" y="0" width="800" height="640" fill="url(#scleraGrad)" />
-                <g id="eyeIris">
-                  <circle cx="500" cy="300" r="130" fill="url(#irisGrad)" />
-                  <g id="irisFibers"></g>
-                  <circle cx="500" cy="300" r="128" fill="none" stroke="#011710" stroke-width="7" />
-                  <circle id="eyePupil" cx="500" cy="300" r="40" fill="#020b07" />
-                  <ellipse cx="545" cy="252" rx="20" ry="13" fill="#fff" opacity=".9" />
-                  <circle cx="462" cy="342" r="6" fill="#fff" opacity=".45" />
-                </g>
-                <rect x="100" y="0" width="800" height="230" fill="url(#lidShadow)" />
-              </g>
-              <path class="eye-lid--l" d="" />
-              <path class="eye-lid--u" d="" />
-              </g>
+              <path class="vt-ghost" d="M400 28 L80 568 L720 568 Z" />
+              <g class="vt-probes"></g>
+              <path class="vt-fill" d="M400 70 L128 540 L672 540 Z" fill="url(#vtGlow)" />
+              <g class="vt-edges"></g>
+              <g class="vt-halos"><circle class="vt-halo" cx="400" cy="383" r="16" /><circle class="vt-halo" cx="400" cy="383" r="16" /></g>
+              <circle class="vt-core" cx="400" cy="383" r="13" />
+              <text class="vt-label" x="400" y="440" text-anchor="middle">DEIN PROBLEM</text>
+              <g class="vt-node"><circle class="vt-node__ring" cx="400" cy="70" r="17" /><circle class="vt-node__in" cx="400" cy="70" r="7" /></g><g class="vt-node"><circle class="vt-node__ring" cx="128" cy="540" r="17" /><circle class="vt-node__in" cx="128" cy="540" r="7" /></g><g class="vt-node"><circle class="vt-node__ring" cx="672" cy="540" r="17" /><circle class="vt-node__in" cx="672" cy="540" r="7" /></g>
+              <text class="vt-corner" x="430" y="77">SIEHT NICHTS</text><text class="vt-corner" x="128" y="586" text-anchor="middle">HÖRT NICHTS</text><text class="vt-corner" x="672" y="586" text-anchor="middle">SAGT NICHTS</text>
+              <text class="vt-cap" x="400" y="618" text-anchor="middle">NICHTS REIN. NICHTS RAUS.</text>
             </svg>
           </div>
         </div>
@@ -484,13 +469,13 @@
 
   <div data-include="footer"></div>
 
-  <script src="assets/js/config.js?v=22"></script>
-  <script src="assets/js/layout.js?v=22"></script>
+  <script src="assets/js/config.js?v=24"></script>
+  <script src="assets/js/layout.js?v=24"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-  <script src="assets/js/network.js?v=22"></script>
-  <script src="assets/js/assist.js?v=22"></script>
-  <script src="assets/js/main.js?v=22"></script>
+  <script src="assets/js/network.js?v=24"></script>
+  <script src="assets/js/assist.js?v=24"></script>
+  <script src="assets/js/main.js?v=24"></script>
 </body>
 </html>

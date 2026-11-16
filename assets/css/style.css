@@ -1466,3 +1466,26 @@ html.asxo-open { overflow: hidden; }
   .footer__mail { display: inline-block; padding: 8px 0; }
   .footer a[href="#top"] { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+/* 01 — Schutz-Dreieck */
+#vaultSvg { overflow: hidden; }
+.vt-ghost { fill: none; stroke: rgba(169,175,178,.16); stroke-width: 1.5; stroke-dasharray: 3 10; }
+.vt-edge { stroke: var(--jungle); stroke-width: 3; stroke-linecap: round; transition: stroke .35s, stroke-width .35s; }
+.vt-edge.is-hit { stroke: #3fe39b; stroke-width: 6; }
+.vt-core { fill: var(--peach); }
+.vt-halo { fill: none; stroke: var(--peach); stroke-width: 1.5; }
+.vt-node__ring { fill: #0b1f17; stroke: var(--jungle); stroke-width: 2; }
+.vt-node__in { fill: var(--jungle); }
+.vt-label { font-family: var(--f-mono); font-size: 19px; letter-spacing: .22em; fill: var(--peach); }
+.vt-cap { font-family: var(--f-mono); font-size: 17px; letter-spacing: .22em; fill: var(--steel); }
+.vt-dot { fill: var(--steel-l); }
+.vt-trail { stroke: rgba(169,175,178,.28); stroke-width: 1.2; stroke-dasharray: 2 6; }
+.vt-qt { font-family: var(--f-mono); font-size: 19px; letter-spacing: .04em; fill: var(--steel-l); }
+.vt-ripple { fill: none; stroke: #3fe39b; stroke-width: 2; }
+@media (max-width: 720px) {
+  .manifest--calm .manifest__visual #vaultSvg { margin: 0; max-height: 300px; }
+  .vt-label, .vt-qt { font-size: 24px; }
+  .vt-cap { font-size: 21px; }
+}
+.vt-corner { font-family: var(--f-mono); font-size: 15px; letter-spacing: .16em; fill: var(--jungle); }
+@media (max-width: 720px) { .vt-corner { font-size: 20px; } }
