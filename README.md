@@ -48,5 +48,4 @@ Die Dateien werden mit `?v=13` eingebunden. Nach größeren Änderungen die Zahl
 ## Problem-Assistent und Suche
 - Datei: `assets/js/assist.js`. Läuft komplett im Browser, ohne Server.
 - Jedes Suchfeld (Startseite, Netzwerk, Leistungen, Anfrage) zeigt beim Tippen Vorschläge und nach dem Absenden eine Einschätzung: Zeit bis zur Lösung, Aufwand, beteiligte Köpfe, Vorgehen, Rückfragen.
-- `⌘K`, `Strg+K` oder `/` (bzw. der Knopf „Suchen“ in der Navigation) öffnet die Suche über die ganze Seite.
 - Falltypen, Zeitrahmen und Stichwörter stehen oben in `assist.js` unter `CASES`. **`n` (Anzahl vergleichbarer Aufgaben) und `d` (Tage) sind Platzhalter: echte Erfahrungswerte eintragen.**

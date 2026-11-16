@@ -263,8 +263,10 @@ function initProbes() {
         if (!target || !net) { location.href = "netzwerk.html?problem=" + encodeURIComponent(text); return; }
         net.value = text;
         const go = () => setTimeout(() => net.form.requestSubmit(), 150);
-        if (window.lenisInstance) window.lenisInstance.scrollTo($(".network__stage"), { offset: -80, duration: 1.8, onComplete: go });
-        else { $(".network__stage").scrollIntoView({ behavior: "smooth" }); setTimeout(go, 900); }
+        // direkt zum Suchfeld im Netzwerk, damit die Einschätzung sichtbar ist
+        const dest = net.form;
+        if (window.lenisInstance) window.lenisInstance.scrollTo(dest, { offset: -110, duration: 1.4, onComplete: go });
+        else { dest.scrollIntoView({ behavior: "smooth" }); setTimeout(go, 900); }
         return;
       }
 
@@ -280,9 +282,9 @@ function initProbes() {
         const keys = [...new Set([...m.inner.map((n) => n.slug), ...(window.NETWORK ? NETWORK.inner.filter((n) => areas.includes(n.area)).map((n) => n.slug) : [])])];
         $$(".svc, .prod[data-key]").forEach((s) => s.classList.toggle("is-match", keys.includes(s.dataset.key)));
         $$(".svc, .prod[data-key]").forEach((s) => s.classList.toggle("is-dim", keys.length > 0 && !keys.includes(s.dataset.key)));
-        const first = $(".svc.is-match, .prod.is-match");
-        if (first) setTimeout(() => (window.lenisInstance ? lenisInstance.scrollTo(first, { offset: -120, duration: 1.4 }) : first.scrollIntoView({ behavior: "smooth" })), 500);
       }
+      const firstMatch = mode === "services" ? $(".svc.is-match, .prod.is-match") : null;
+      const nMatch = $$(".prod.is-match, .svc.is-match").length;
       if (mode === "inquiry" && window.prefillInquiry) {
         const msg = $("#messageField"); if (msg) msg.value = text;
         prefillInquiry("", areas);
@@ -293,7 +295,10 @@ function initProbes() {
       const action = mode === "inquiry"
         ? `<span class="probe__note">Ins Formular übernommen. Unten ergänzen und absenden.</span>`
         : `<a class="probe__take" href="${$("#anfrage") ? "#anfrage" : inquiryUrl(text, areas)}">Als Anfrage übernehmen →</a>`;
-      result.innerHTML = ax ? ASSIST.render(ax, { take: action }) : `<span class="probe__hits">${chips}</span>${action}`;
+      const more = firstMatch ? `<a class="probe__more" href="#${firstMatch.id}">${nMatch === 1 ? "1 passende Leistung" : nMatch + " passende Leistungen"} unten markiert ↓</a>` : "";
+      result.innerHTML = ax ? ASSIST.render(ax, { take: more + action }) : `<span class="probe__hits">${chips}</span>${more}${action}`;
+      const moreA = $(".probe__more", result);
+      if (moreA) moreA.addEventListener("click", (ev) => { ev.preventDefault(); window.lenisInstance ? lenisInstance.scrollTo(firstMatch, { offset: -120, duration: 1.4 }) : firstMatch.scrollIntoView({ behavior: "smooth" }); });
       void heads;
       result.classList.add("is-on");
       if (hasGSAP) gsap.from($$(".asx > *", result), { y: 10, opacity: 0, stagger: .06, duration: .6, ease: "power2.out", delay: mode === "network" ? .3 : 0 });

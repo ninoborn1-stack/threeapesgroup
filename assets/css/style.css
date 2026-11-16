@@ -1315,7 +1315,7 @@ html.pt-in .pt i { transform: none; }
 .nav__search kbd { padding: 2px 5px; border-radius: 4px; background: rgba(234,237,235,.08); color: var(--steel); }
 @media (max-width: 1024px) { .nav__search { margin-right: 10px; padding: 9px; } .nav__search span, .nav__search kbd { display: none; } }
 
-.asx-host { position: relative; }
+.asx-host { position: relative; z-index: 20; }
 .asx-sug { position: absolute; left: 0; right: 0; z-index: 30; margin-top: 8px; padding: 8px; border-radius: 16px; background: #011a12; box-shadow: 0 0 0 1px var(--line), 0 24px 60px rgba(0,0,0,.45); display: none; text-align: left; }
 .asx-sug.is-on { display: block; }
 .asx-sug__h { display: block; padding: 6px 10px 8px; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--steel); }
@@ -1374,3 +1374,6 @@ html.asxo-open { overflow: hidden; }
 .asxo__site small { color: var(--steel); font-size: 13px; }
 .asxo__site i { font-style: normal; color: var(--jungle); }
 .asxo__hint { margin: 0; padding: 8px 10px; font-size: 11px; letter-spacing: .08em; color: var(--steel); }
+
+.asx__foot .probe__more { margin-left: auto; color: var(--jungle); font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; padding: 10px 4px; }
+.asx__foot .probe__more:hover { color: var(--paper); }

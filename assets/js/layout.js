@@ -23,7 +23,6 @@
     <nav class="nav__links" aria-label="Hauptnavigation">
       ${PAGES.map(([h, l]) => `<a href="${h}" data-scramble${active(h) ? ' class="is-active" aria-current="page"' : ""}>${l}</a>`).join("")}
     </nav>
-    <button type="button" class="nav__search" data-assist-open aria-label="Suchen (⌘K)"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg><span class="mono">Suchen</span><kbd class="mono">⌘K</kbd></button>
     <a href="anfrage.html" class="btn btn--peach btn--sm">Anfrage</a>
     <button class="nav__burger" id="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span></button>
   </header>

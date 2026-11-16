@@ -3,7 +3,7 @@
    Gibt zu einem Satz eine Einschätzung zurück: worum es geht, wie lange
    vergleichbare Aufgaben gedauert haben, wie aufwendig es ist, wer im
    Netzwerk dran wäre, wie wir vorgehen und was uns noch hilft.
-   Dazu: Vorschläge beim Tippen und eine Suche über die ganze Seite (⌘K, /).
+   Dazu: Vorschläge beim Tippen.
 
    CASES pflegen:
    t  = Titel des Falltyps        k  = Stichwörter (klein, Wortanfänge reichen)
@@ -123,7 +123,7 @@
     const t = norm(text);
     const ranked = CASES.map((c) => ({ c, s: score(t, c) })).filter((x) => x.s > 0).sort((a, b) => b.s - a.s);
     const top = ranked[0];
-    const extra = top ? ranked.slice(1).filter((x) => x.s >= top.s * .6 && x.c.a.join() !== top.c.a.join()).slice(0, 2) : [];
+    const extra = top ? ranked.slice(1).filter((x) => x.s >= top.s * .4 && x.c.a.join() !== top.c.a.join()).slice(0, 2) : [];
     const c = top ? top.c : GENERIC;
     const areas = [...new Set([c, ...extra.map((x) => x.c)].flatMap((x) => x.a))];
     const urgent = any(t, URGENT) || !!c.urgent;
@@ -294,6 +294,5 @@
   }
 
   window.ASSIST = { assess, render, suggest, attach, takeUrl, CASES };
-  const boot = () => { window.ASSIST.ui = overlay(); };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+  void overlay; // Seitenweite Suche (⌘K) ist aus: gesucht wird in den Feldern auf den Seiten
 })();
