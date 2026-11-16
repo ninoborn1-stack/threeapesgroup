@@ -317,6 +317,12 @@ function initProbes() {
     // Beispiel-Chips
     $$("[data-example]", form.parentElement).forEach((b) => b.addEventListener("click", () => { input.value = b.dataset.example; form.requestSubmit(); }));
   });
+  // lange Platzhalter auf schmalen Bildschirmen kürzen
+  const shortPh = () => $$("form[data-probe] input").forEach((i) => {
+    i.dataset.ph = i.dataset.ph || i.placeholder;
+    i.placeholder = window.innerWidth < 560 && i.dataset.ph.length > 28 ? "Dein Problem in einem Satz" : i.dataset.ph;
+  });
+  shortPh(); window.addEventListener("resize", shortPh);
   // Problem aus der Adresse übernehmen (z. B. netzwerk.html?problem=…)
   const pre = params.get("problem");
   const pf = $('form[data-probe="network"], form[data-probe="services"]');

@@ -1390,3 +1390,79 @@ html.asxo-open { overflow: hidden; }
 .cta-band--home { padding: clamp(110px, 16vh, 170px) var(--gutter); }
 .cta-band--home .h2--xl { margin: 18px auto 30px; }
 .cta-band--home p { font-size: clamp(16px, 1.2vw, 19px); }
+
+/* =================================================================
+   Mobil & Tablet
+   ================================================================= */
+/* Tippflächen auf Touch-Geräten */
+@media (max-width: 1024px), (pointer: coarse) {
+  .hprobe__tags button, .probe__examples button { min-height: 40px; padding: 10px 14px; }
+  .svcx__btn { min-height: 44px; padding: 11px 16px; }
+  .footer__cols a { padding: 9px 0; margin: 0; }
+  .code__toggle { min-height: 44px; display: inline-flex; align-items: center; }
+  .nav__brand { min-height: 44px; }
+}
+/* Menü offen: Markenname lesbar auf Peach */
+.nav:has(.nav__burger[aria-expanded="true"]) .nav__brand { color: var(--forest); }
+
+/* Tablet hochkant */
+@media (min-width: 721px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero__title { font-size: clamp(48px, 7.8vw, 82px); }
+  .hero__lead { font-size: 19px; max-width: 600px; }
+  .hprobe, .hprobe__tags, .hero__facts { max-width: 640px; }
+  .hero__emblem { width: min(46vw, 34vh); }
+  .phero__title { font-size: clamp(48px, 7.4vw, 76px); }
+  .phero__lead { font-size: 19px; }
+}
+@media (max-width: 1024px) {
+  .phero__facts { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+}
+/* Handy und Tablet quer: Seitenkopf zweispaltig, damit der Titel sofort sichtbar ist */
+@media (min-width: 600px) and (max-width: 1024px) and (orientation: landscape) {
+  .phero { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); align-items: center; gap: 4vw; padding-top: 96px; min-height: 0; }
+  .phero__aside { order: 0; justify-items: end; }
+  .phero__dots, .phero__art { width: min(34vw, 62vh); }
+  .phero__facts { justify-content: flex-end; text-align: right; }
+}
+
+/* Handy */
+@media (max-width: 720px) {
+  .section, .principles, .process, .inquiry, .network, .protocol { padding-top: 80px; padding-bottom: 72px; }
+  .partners { padding: 80px 0 72px; }
+  .partners__head { margin-bottom: 44px; }
+  .partners__cta { padding-top: 44px; }
+  .cta-band, .cta-band--home { padding: 88px var(--gutter); }
+  .manifest--calm .manifest__pin { padding: 72px var(--gutter); }
+  .manifest--calm .manifest__visual svg { margin: -16% 0 -20%; }
+  .crowd { margin-bottom: 40px; }
+
+  /* Hero: alle Beispiele zeigen, Kennzahlen wieder einblenden */
+  .hprobe__tags { flex-wrap: wrap; }
+  .hero__facts { gap: 8px 22px; margin-top: 24px; padding-top: 14px; }
+  .hero__facts b { font-size: 16px; }
+
+  .coop__card { min-height: 0; grid-template-rows: auto auto auto; gap: 8px; padding: 22px; }
+  .coop__card .coop__name { margin-top: 14px; }
+  .file__top { flex-wrap: wrap; row-gap: 4px; }
+  .file__top > * { white-space: nowrap; }
+
+  /* Mini-Schrift anheben */
+  .coop__top .mono, .kicker, .hprobe__tags button, .probe__examples button, .asx-sug__h, .asx__kpi span, .asx__cols > div > span, .asx__tag, .asx__foot > span { font-size: 11px; }
+  .pd-cap { font-size: 12px; }
+  .stat__viz--dots { gap: 4px; }
+}
+@media (max-width: 720px) and (min-height: 700px) {
+  .hero__facts { display: flex; }
+}
+@media (max-width: 380px) {
+  .hero__facts { gap: 6px 16px; font-size: 10.5px; }
+  .hprobe .btn { padding: 13px 14px; }
+}
+@media (max-width: 720px) and (min-height: 700px) {
+  .hprobe__tags button:nth-child(n+3) { display: inline-flex; align-items: center; }
+}
+@media (max-width: 1024px), (pointer: coarse) {
+  .svcx__more { min-height: 44px; display: inline-flex; align-items: center; }
+  .footer__mail { display: inline-block; padding: 8px 0; }
+  .footer a[href="#top"] { display: inline-flex; align-items: center; min-height: 44px; }
+}
