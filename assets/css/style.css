@@ -1377,3 +1377,16 @@ html.asxo-open { overflow: hidden; }
 
 .asx__foot .probe__more { margin-left: auto; color: var(--jungle); font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; padding: 10px 4px; }
 .asx__foot .probe__more:hover { color: var(--paper); }
+
+/* =================================================================
+   Review 7
+   ================================================================= */
+@media (min-width: 1025px) {
+  .hero { grid-template-columns: minmax(0, 1.4fr) minmax(0, .85fr); gap: 3vw; }
+  .hero__title { font-size: clamp(34px, min(5.2vw, 9vh), 104px); }
+  .hero__lead { max-width: 620px; font-size: clamp(17px, 1.35vw, 21px); }
+  .hprobe, .hprobe__tags, .hero__facts { max-width: 680px; }
+}
+.cta-band--home { padding: clamp(110px, 16vh, 170px) var(--gutter); }
+.cta-band--home .h2--xl { margin: 18px auto 30px; }
+.cta-band--home p { font-size: clamp(16px, 1.2vw, 19px); }

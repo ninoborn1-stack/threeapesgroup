@@ -11,7 +11,7 @@ Danach http://localhost:5173 öffnen.
 ## Seiten
 | Datei | Inhalt |
 |---|---|
-| `index.html` | Startseite: Loader, Hero mit Suchfeld, Auge (4 Schritte), „Wir sind alle“, Protokoll, Netzwerk mit Kooperationen, Leistungen, Akten, Partner, Prozess, Anfrage |
+| `index.html` | Startseite: Loader, Hero mit Suchfeld, Auge (4 Schritte), „Wir sind alle“, Protokoll, Netzwerk mit Kooperationen, Leistungen, Akten, Partner, Prozess, Anfrage-Hinweis (führt zu `anfrage.html`) |
 | `manifest.html` | Die Idee hinter den drei Affen, Diskretion, FAQ |
 | `netzwerk.html` | Großes Netzwerk mit Suchfeld, Disziplinen, „Netzwerk beitreten“ |
 | `leistungen.html` | Alle 11 Leistungen im Detail mit Zuordnungs-Suche |
@@ -40,6 +40,7 @@ Danach http://localhost:5173 öffnen.
 
 ## Links mit Vorbelegung
 - `anfrage.html?problem=Text&bereich=KI,Sponsoring&typ=Beratung` füllt das Formular vor.
+- Das einzige Anfrageformular steht auf `anfrage.html`. Alle anderen Seiten verlinken nur dorthin.
 - `netzwerk.html?problem=Text` schickt den Text direkt durchs Netzwerk.
 
 ## Nach Änderungen

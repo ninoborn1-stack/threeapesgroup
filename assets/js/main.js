@@ -294,7 +294,7 @@ function initProbes() {
       const heads = guessed ? 3 : names.length * 3 + 2;
       const action = mode === "inquiry"
         ? `<span class="probe__note">Ins Formular übernommen. Unten ergänzen und absenden.</span>`
-        : `<a class="probe__take" href="${$("#anfrage") ? "#anfrage" : inquiryUrl(text, areas)}">Als Anfrage übernehmen →</a>`;
+        : `<a class="probe__take" href="${$("#inquiryForm") ? "#anfrage" : inquiryUrl(text, areas)}">Als Anfrage übernehmen →</a>`;
       const more = firstMatch ? `<a class="probe__more" href="#${firstMatch.id}">${nMatch === 1 ? "1 passende Leistung" : nMatch + " passende Leistungen"} unten markiert ↓</a>` : "";
       result.innerHTML = ax ? ASSIST.render(ax, { take: more + action }) : `<span class="probe__hits">${chips}</span>${more}${action}`;
       const moreA = $(".probe__more", result);
@@ -719,34 +719,70 @@ function initEye() {
   if (!svg) return;
   const NS = "http://www.w3.org/2000/svg";
   const mk = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent && parent.appendChild(n); return n; };
-  const fib = $("#irisFibers", svg);
+  const fib = $("#irisFibers", svg), iris = $("#eyeIris", svg), pupil = $("#eyePupil", svg);
   const cols = ["#01B36C", "#0b7f50", "#2bd08a"];
-  for (let i = 0; i < 90; i++) {
-    const a = (i / 90) * Math.PI * 2;
-    const r1 = 48, r2 = 100 + Math.random() * 24;
-    mk("line", { x1: 500 + Math.cos(a) * r1, y1: 300 + Math.sin(a) * r1, x2: 500 + Math.cos(a) * r2, y2: 300 + Math.sin(a) * r2, stroke: cols[i % 3], "stroke-width": 1.2, opacity: .55 }, fib);
+  for (let i = 0; i < 120; i++) {
+    const a = (i / 120) * Math.PI * 2;
+    const r1 = 46 + Math.random() * 6, r2 = 96 + Math.random() * 28;
+    mk("line", { x1: 500 + Math.cos(a) * r1, y1: 300 + Math.sin(a) * r1, x2: 500 + Math.cos(a) * r2, y2: 300 + Math.sin(a) * r2, stroke: cols[i % 3], "stroke-width": i % 4 ? 1 : 1.8, opacity: .5 }, fib);
   }
   const clip = $("#eyeClipShape", svg), lidU = $(".eye-lid--u", svg), lidL = $(".eye-lid--l", svg);
   const L = { x: 170, y: 300 }, R = { x: 830, y: 300 };
   const st = { o: reduceMotion || !hasGSAP ? 1 : 0, blink: 1 };
+  const gz = { x: 0, y: 0 }, tg = { x: 0, y: 0 };
   function draw() {
     const o = Math.max(0, Math.min(1, st.o * st.blink));
-    const uy = 300 - 280 * o + 40 * (1 - o), ly = 300 + 200 * o + 40 * (1 - o);
+    // das Oberlid folgt dem Blick ein wenig (schaut das Auge nach unten, senkt es sich)
+    const uy = 300 - 280 * o + 40 * (1 - o) + gz.y * 26 * o, ly = 300 + 200 * o + 40 * (1 - o) + gz.y * 10 * o;
     clip.setAttribute("d", `M${L.x} ${L.y} Q500 ${uy} ${R.x} ${R.y} Q500 ${ly} ${L.x} ${L.y} Z`);
     lidU.setAttribute("d", `M${L.x - 6} ${L.y + 2} Q500 ${uy} ${R.x + 6} ${R.y + 2}`);
     lidL.setAttribute("d", `M${L.x} ${L.y} Q500 ${ly} ${R.x} ${R.y}`);
+    iris.setAttribute("transform", `translate(${(gz.x * 78).toFixed(1)} ${(gz.y * 30).toFixed(1)})`);
   }
   draw();
   if (!hasGSAP || reduceMotion) return;
-  let inView = false;
+  let inView = false, lastPointer = 0;
   ScrollTrigger.create({ trigger: svg, start: "top 75%", once: true, onEnter: () => gsap.to(st, { o: 1, duration: 1.8, ease: "power2.inOut", onUpdate: draw }) });
   ScrollTrigger.create({ trigger: svg, start: "top bottom", end: "bottom top", onToggle: (self) => (inView = self.isActive) });
-  // seltenes, ruhiges Blinzeln
-  const blink = () => {
-    if (inView && st.o > .95) gsap.timeline().to(st, { blink: .05, duration: .14, ease: "power1.in", onUpdate: draw }).to(st, { blink: 1, duration: .3, ease: "power1.out", onUpdate: draw });
-    setTimeout(blink, 7000 + Math.random() * 4000);
+
+  // Blick folgt der Maus, sanft gedämpft
+  const sec = svg.closest("section") || document;
+  sec.addEventListener("pointermove", (e) => {
+    if (e.pointerType === "touch") return;
+    const b = svg.getBoundingClientRect();
+    const dx = (e.clientX - (b.left + b.width / 2)) / (window.innerWidth * .45);
+    const dy = (e.clientY - (b.top + b.height / 2)) / (window.innerHeight * .5);
+    tg.x = Math.max(-1, Math.min(1, dx)); tg.y = Math.max(-1, Math.min(1, dy));
+    lastPointer = performance.now();
+  });
+  // ohne Maus: schaut sich ruhig um, mit kurzen Pausen
+  const LOOK = [[0, 0], [-.7, -.2], [.65, -.25], [.2, .55], [-.45, .4], [.8, .1], [0, -.35]];
+  const wander = () => {
+    if (inView && performance.now() - lastPointer > 2600) { const p = LOOK[(Math.random() * LOOK.length) | 0]; tg.x = p[0]; tg.y = p[1]; }
+    setTimeout(wander, 1600 + Math.random() * 2000);
   };
-  setTimeout(blink, 6000);
+  setTimeout(wander, 2400);
+  gsap.ticker.add(() => {
+    if (!inView) return;
+    const ex = tg.x - gz.x, ey = tg.y - gz.y;
+    if (Math.abs(ex) < .001 && Math.abs(ey) < .001) return;
+    gz.x += ex * .07; gz.y += ey * .07;
+    draw();
+  });
+  // Pupille atmet, Iris dreht sich ganz langsam
+  gsap.to(pupil, { attr: { r: 47 }, duration: 3.4, ease: "sine.inOut", yoyo: true, repeat: -1 });
+  gsap.to(fib, { rotation: 360, svgOrigin: "500 300", duration: 140, ease: "none", repeat: -1 });
+  // Blinzeln alle paar Sekunden, ab und zu doppelt
+  const blinkOnce = (tl) => tl.to(st, { blink: .04, duration: .12, ease: "power1.in", onUpdate: draw }).to(st, { blink: 1, duration: .26, ease: "power1.out", onUpdate: draw });
+  const blink = () => {
+    if (inView && st.o > .95 && !document.hidden) {
+      const tl = gsap.timeline();
+      blinkOnce(tl);
+      if (Math.random() < .25) { tl.to({}, { duration: .12 }); blinkOnce(tl); }
+    }
+    setTimeout(blink, 3800 + Math.random() * 3200);
+  };
+  setTimeout(blink, 3500);
 }
 
 /* =================================================================
@@ -889,7 +925,7 @@ function initSvcx() {
    ================================================================= */
 function initMorph(svg) {
   const NS = "http://www.w3.org/2000/svg";
-  const W = 400, H = 320, N = window.innerWidth < 720 ? 200 : 300;
+  const W = 400, H = 320, N = window.innerWidth < 720 ? 480 : 760;
   const keys = svg.dataset.morph.split(","), caps = (svg.dataset.cap || "").split("|");
   const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
   const gL = mk("g", { class: "pd-links" }, svg);
@@ -898,7 +934,7 @@ function initMorph(svg) {
   const rnd = () => [20 + Math.random() * (W - 40), 10 + Math.random() * (H - 50)];
   const dots = Array.from({ length: N }, (_, i) => {
     const [x, y] = rnd(), r = Math.random();
-    return mk("circle", { cx: x, cy: y, r: r > .94 ? 3.2 : 1.4 + Math.random() * 1.3, class: "pd-dot" + (r > .94 ? " pd-dot--p" : r > .75 ? " pd-dot--g" : ""), opacity: 0 }, gD);
+    return mk("circle", { cx: x, cy: y, r: r > .975 ? 2.6 : .9 + Math.random() * 1.1, class: "pd-dot" + (r > .975 ? " pd-dot--p" : r > .8 ? " pd-dot--g" : ""), opacity: 0 }, gD);
   });
 
   // Symbol als Punktwolke: Icon auf Canvas zeichnen und abtasten
@@ -918,7 +954,7 @@ function initMorph(svg) {
       for (let y = 0; y < H; y += 2) for (let x = 0; x < W; x += 2) if (d[(y * W + x) * 4 + 3] > 120) pts.push([x, y]);
       if (!pts.length) return res(null);
       for (let i = pts.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [pts[i], pts[j]] = [pts[j], pts[i]]; }
-      res(Array.from({ length: N }, (_, i) => { const q = pts[i % pts.length]; return [q[0] + (Math.random() - .5) * 2.4, q[1] + (Math.random() - .5) * 2.4]; }));
+      res(Array.from({ length: N }, (_, i) => { const q = pts[i % pts.length]; return [q[0] + (Math.random() - .5) * 1.6, q[1] + (Math.random() - .5) * 1.6]; }));
     };
     img.onerror = () => res(null);
     img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(src);
