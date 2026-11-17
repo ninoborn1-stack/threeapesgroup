@@ -3,7 +3,7 @@
    Navigation, Menü und Footer stehen nur hier. Änderungen gelten sofort überall.
    ================================================================= */
 (function () {
-  const MAIL = "kontakt@threeapesgroup.de"; // PLATZHALTER
+  const MAIL = "kontakt@threeapesgroup.com";
   const PAGES = [
     ["manifest.html", "Manifest"],
     ["netzwerk.html", "Netzwerk"],

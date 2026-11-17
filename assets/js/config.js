@@ -15,7 +15,7 @@ window.CONFIG = {
   // Formular-Ziel: z. B. ein Formspree-Endpoint ("https://formspree.io/f/xxxxxx").
   // Leer = die Anfrage öffnet das Mailprogramm mit vorausgefüllter E-Mail.
   formEndpoint: "",
-  mailTo: "kontakt@threeapesgroup.de", // PLATZHALTER
+  mailTo: "kontakt@threeapesgroup.com",
 };
 
 /* -----------------------------------------------------------------

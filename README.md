@@ -2,6 +2,8 @@
 
 Reine HTML/CSS/JS-Seite ohne Build-Schritt.
 
+Live: https://threeapesgroup.com (GitHub Pages, Domain über die Datei `CNAME`). DNS liegt bei Febas: 4× A und 4× AAAA auf GitHub, `www` als CNAME auf `ninoborn1-stack.github.io`. Die Mail-Einträge (MX, SPF, mail, imap, smtp) gehören Febas und bleiben unverändert.
+
 ## Starten
 ```bash
 python3 -m http.server 5173
