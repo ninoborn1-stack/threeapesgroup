@@ -1551,3 +1551,39 @@ html.asxo-open { overflow: hidden; }
 .eyebrow span { font-family: var(--f-mono); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--jungle); }
 .eyebrow em { font-style: italic; }
 .eyebrow::after { content: "✦"; font-size: .55em; color: var(--jungle); margin-left: .35em; align-self: center; }
+
+/* =================================================================
+   Review 9 — Hero-Balance: Text links, Grafik mittig daneben
+   ================================================================= */
+/* Startseite: Dreieck sitzt immer um das Logo */
+.hero__tri { position: absolute; left: -24%; top: -27%; width: 148%; height: 136%; overflow: visible; pointer-events: none; z-index: -1; }
+@media (min-width: 1025px) {
+  .hero { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 2vw; }
+  .hero__emblem { width: min(100%, 62vh, 560px); }
+}
+
+/* Unterseiten */
+.phero { align-items: center; }
+.phero__aside { align-self: center; justify-items: center; }
+.phero__main .phero__facts {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); max-width: 640px;
+  display: flex; flex-wrap: wrap; gap: 8px 30px; justify-content: flex-start; text-align: left; justify-self: auto; color: var(--steel-l);
+}
+.phero__main .phero__facts span { position: relative; }
+.phero__main .phero__facts span + span::before { content: ""; position: absolute; left: -17px; top: 50%; width: 4px; height: 4px; margin-top: -2px; border-radius: 50%; background: var(--jungle); }
+@media (min-width: 1025px) {
+  .phero { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 3vw; padding-bottom: 100px; }
+  .phero__dots, .phero__art, .phero__way { width: min(100%, 520px, 60vh); }
+}
+@media (max-width: 1024px) {
+  .phero__main .phero__facts { margin-top: 28px; }
+}
+.hero__emblem { isolation: isolate; }
+.hero__tri .hg-tri { vector-effect: none; stroke-width: .16; stroke: rgba(1,179,108,.28); }
+@media (min-width: 600px) and (max-width: 1024px) and (orientation: landscape) {
+  .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, .9fr); gap: 2vw; }
+  .hero__emblem { width: min(92%, 54vh); justify-self: center; }
+  .phero { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+  .phero__dots, .phero__art, .phero__way { width: min(100%, 60vh); }
+  .phero__main .phero__facts { gap: 6px 26px; }
+}
