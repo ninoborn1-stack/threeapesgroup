@@ -1489,3 +1489,65 @@ html.asxo-open { overflow: hidden; }
 }
 .vt-corner { font-family: var(--f-mono); font-size: 15px; letter-spacing: .16em; fill: var(--jungle); }
 @media (max-width: 720px) { .vt-corner { font-size: 20px; } }
+
+/* Review 8 — Hero-Grafik der Unterseiten mittig in der rechten Spalte */
+.phero__aside { justify-items: center; }
+.phero__aside > svg { justify-self: center; }
+.phero__facts { text-align: center; justify-content: center; }
+@media (max-width: 1024px) {
+  .phero__aside { justify-items: center; }
+  .phero__facts { text-align: left; justify-self: start; justify-content: flex-start; }
+}
+@media (min-width: 600px) and (max-width: 1024px) and (orientation: landscape) {
+  .phero__aside { justify-items: center; }
+  .phero__facts { text-align: center; justify-self: center; justify-content: center; }
+}
+
+/* Manifest 02 — Labyrinth */
+.phero__way { width: min(100%, 460px); height: auto; overflow: visible; }
+.way-walls line { stroke: var(--steel); stroke-width: 2; stroke-linecap: round; }
+.way-tries circle { fill: var(--steel-l); }
+.way-route { fill: none; stroke: var(--jungle); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.way-start { fill: var(--peach); }
+.way-goal circle { fill: none; stroke: var(--jungle); stroke-width: 2.5; }
+.way-goal path { fill: none; stroke: var(--jungle); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.way-tag { font-family: var(--f-mono); font-size: 12px; letter-spacing: .18em; fill: var(--steel); }
+.way-tag--end { fill: var(--jungle); }
+@media (max-width: 1024px) { .phero__way { width: min(76vw, 340px); } }
+@media (max-width: 720px) { .way-tag { font-size: 14px; } }
+
+/* Partner — ein enger Partner */
+.home-base { margin: 0 var(--gutter); padding: 46px 0 0; border-top: 1px solid rgba(1,43,29,.15); }
+.home-base__name { margin: 0; display: flex; flex-wrap: wrap; font-weight: 900; font-variation-settings: "wdth" 62; font-size: clamp(64px, 15vw, 250px); line-height: .82; letter-spacing: -.01em; color: var(--forest); }
+.home-base__out { color: transparent; -webkit-text-stroke: 2px var(--forest); }
+.home-base__meta { margin-top: 40px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(1,43,29,.15); }
+.home-base__meta > div { padding: 20px 20px 0 0; display: grid; gap: 6px; }
+.home-base__meta > div + div { padding-left: 20px; border-left: 1px solid rgba(1,43,29,.15); }
+.home-base__meta .mono { color: rgba(1,43,29,.55); }
+.home-base__meta b { font-size: 19px; font-weight: 600; color: var(--forest); }
+@media (max-width: 720px) {
+  .home-base__meta { grid-template-columns: 1fr; }
+  .home-base__meta > div, .home-base__meta > div + div { padding: 14px 0; border-left: 0; border-bottom: 1px solid rgba(1,43,29,.15); }
+  .home-base__out { -webkit-text-stroke-width: 1.5px; }
+}
+
+/* Partner — Spannweite Sponsoring */
+.range { list-style: none; margin: 0 var(--gutter); padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 2px solid var(--forest); }
+.range li { position: relative; padding: 28px 22px 10px 0; }
+.range li::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--jungle); }
+.range li:last-child::before { background: var(--peach); }
+.range__n { color: rgba(1,43,29,.5); }
+.range h3 { margin: 12px 0 8px; font-size: clamp(20px, 1.7vw, 26px); color: var(--forest); line-height: 1.1; }
+.range p { margin: 0; font-size: 15px; color: rgba(1,43,29,.72); }
+@media (max-width: 1024px) {
+  .range { grid-template-columns: 1fr; border-top: 0; border-left: 2px solid var(--forest); margin-left: calc(var(--gutter) + 6px); }
+  .range li { padding: 0 0 26px 26px; }
+  .range li::before { top: 4px; left: -7px; }
+  .range h3 { margin-top: 6px; }
+}
+
+/* Edlerer Abschnittstitel */
+.eyebrow { margin: 0 0 18px; font-family: var(--f-serif); font-size: clamp(24px, 2vw, 32px); line-height: 1; color: var(--forest); display: inline-flex; align-items: baseline; gap: .3em; }
+.eyebrow span { font-family: var(--f-mono); font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--jungle); }
+.eyebrow em { font-style: italic; }
+.eyebrow::after { content: "✦"; font-size: .55em; color: var(--jungle); margin-left: .35em; align-self: center; }

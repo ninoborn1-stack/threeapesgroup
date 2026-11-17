@@ -14,12 +14,12 @@ Danach http://localhost:5173 öffnen.
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Startseite: Loader, Hero mit Suchfeld, Manifest mit Schutz-Dreieck, „Wir sind alle“, Protokoll, Netzwerk mit Kooperationen, Leistungen, Akten, Partner, Prozess, Anfrage-Hinweis (führt zu `anfrage.html`) |
-| `manifest.html` | Die Idee hinter den drei Affen, Diskretion, FAQ |
+| `manifest.html` | Die Idee hinter den drei Affen, 02 mit Labyrinth-Animation (`initWay` in main.js), Diskretion, FAQ |
 | `netzwerk.html` | Großes Netzwerk mit Suchfeld, Disziplinen, „Netzwerk beitreten“ |
 | `leistungen.html` | Alle 11 Leistungen im Detail mit Zuordnungs-Suche |
 | `projekte.html` | Alle Akten mit Filter |
 | `projekt.html` | Vorlage für eine einzelne Akte |
-| `partner.html` | Partner, Sponsoring, Partnerschaft mit Code |
+| `partner.html` | Enger Partner (Bunkerwest), Spannweite Sponsoring bis Kulturförderung, Partnerschaft nur mit Bewerbung oder Empfehlungscode. Keine Namen von Sponsoren |
 | `anfrage.html` | Anfrageformular mit Schnellstart |
 | `impressum.html`, `datenschutz.html` | Platzhalter, vor dem Livegang ausfüllen |
 
@@ -33,7 +33,7 @@ Danach http://localhost:5173 öffnen.
 - Platzhalter sind im HTML mit `PLATZHALTER` markiert.
 
 ## Inhalte tauschen
-- **Akten (Projekte)**: einen `<article class="file">` kopieren. `data-cat` steuert den Filter auf `projekte.html` (z. B. `ki software`).
+- **Akten (Projekte)**: nur Rahmen (Branche, Umfang, Ergebnis), nie Kundennamen. Einen `<article class="file">` kopieren. `data-cat` steuert den Filter auf `projekte.html` (z. B. `ki software`).
 - **Geschwärzte Stellen**: Text in `<span class="redact">…</span>` setzen. Er wird beim Scrollen geschwärzt.
 - **Partner-Logos**: `<span class="plogo">` durch `<img src="assets/img/partner/name.svg" class="plogo">` ersetzen.
 - **Zahlen**: Attribut `data-count` (zählt beim Scrollen hoch).

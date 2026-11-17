@@ -636,6 +636,7 @@ function initAnimations() {
 
   initEye();
   initVault();
+  initWay();
   initStats();
   initSvcx();
 
@@ -870,6 +871,102 @@ function initVault() {
   // die drei Ecken halten nacheinander kurz Wache
   let k = 0;
   setInterval(() => { if (!ready || !inView) return; const n = nodes[k++ % 3]; gsap.fromTo(n, { scale: 1 }, { scale: 1.35, duration: .35, yoyo: true, repeat: 1, ease: "power1.inOut" }); }, 2200);
+}
+
+/* =================================================================
+   Manifest 02 — Keine Probleme, nur Wege: ein Labyrinth, das sich löst
+   ================================================================= */
+function initWay() {
+  const svg = $("#waySvg");
+  if (!svg) return;
+  const NS = "http://www.w3.org/2000/svg";
+  const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
+  const C = 9, R = 6, S = 38, X0 = 200 - (C * S) / 2, Y0 = 26;
+  const cx = (c) => X0 + c * S + S / 2, cy = (r) => Y0 + r * S + S / 2;
+  const root = mk("g", {});
+  mk("text", { x: X0 - 2, y: Y0 + R * S + 32, class: "way-tag" }, svg).textContent = "PROBLEM";
+  mk("text", { x: X0 + C * S + 2, y: Y0 + R * S + 32, class: "way-tag way-tag--end", "text-anchor": "end" }, svg).textContent = "WEG";
+
+  const build = () => {
+    root.innerHTML = "";
+    // Labyrinth erzeugen (Tiefensuche)
+    const right = [], down = [], seen = [];
+    for (let r = 0; r < R; r++) { right.push(Array(C).fill(true)); down.push(Array(C).fill(true)); seen.push(Array(C).fill(false)); }
+    const st = [[(Math.random() * R) | 0, 0]]; seen[st[0][0]][0] = true;
+    while (st.length) {
+      const [r, c] = st[st.length - 1];
+      const nb = [[r - 1, c], [r + 1, c], [r, c - 1], [r, c + 1]].filter(([a, b]) => a >= 0 && a < R && b >= 0 && b < C && !seen[a][b]);
+      if (!nb.length) { st.pop(); continue; }
+      const [a, b] = nb[(Math.random() * nb.length) | 0];
+      if (a === r) right[r][Math.min(b, c)] = false; else down[Math.min(a, r)][c] = false;
+      seen[a][b] = true; st.push([a, b]);
+    }
+    const sr = (Math.random() * R) | 0, gr = (Math.random() * R) | 0;
+    // Wände
+    const walls = mk("g", { class: "way-walls" }, root);
+    const line = (x1, y1, x2, y2) => mk("line", { x1, y1, x2, y2 }, walls);
+    for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
+      const x = X0 + c * S, y = Y0 + r * S;
+      if (c < C - 1 && right[r][c]) line(x + S, y, x + S, y + S);
+      if (r < R - 1 && down[r][c]) line(x, y + S, x + S, y + S);
+    }
+    const W = X0 + C * S, H = Y0 + R * S;
+    line(X0, Y0, W, Y0); line(X0, H, W, H);
+    line(X0, Y0, X0, Y0 + sr * S); line(X0, Y0 + (sr + 1) * S, X0, H);
+    line(W, Y0, W, Y0 + gr * S); line(W, Y0 + (gr + 1) * S, W, H);
+    // Breitensuche: alle Wege probieren, den kürzesten nehmen
+    const key = (r, c) => r * C + c, prev = new Map([[key(sr, 0), null]]), order = [], q = [[sr, 0]];
+    while (q.length) {
+      const [r, c] = q.shift(); order.push([r, c]);
+      if (r === gr && c === C - 1) break;
+      const opts = [];
+      if (c < C - 1 && !right[r][c]) opts.push([r, c + 1]);
+      if (c > 0 && !right[r][c - 1]) opts.push([r, c - 1]);
+      if (r < R - 1 && !down[r][c]) opts.push([r + 1, c]);
+      if (r > 0 && !down[r - 1][c]) opts.push([r - 1, c]);
+      opts.forEach(([a, b]) => { if (!prev.has(key(a, b))) { prev.set(key(a, b), [r, c]); q.push([a, b]); } });
+    }
+    const path = []; let cur = [gr, C - 1];
+    while (cur) { path.unshift(cur); cur = prev.get(key(cur[0], cur[1])); }
+    const tries = mk("g", { class: "way-tries" }, root);
+    const dots = order.map(([r, c]) => mk("circle", { cx: cx(c), cy: cy(r), r: 2.4 }, tries));
+    const pts = [[X0 - 26, cy(sr)], ...path.map(([r, c]) => [cx(c), cy(r)]), [W + 26, cy(gr)]];
+    const route = mk("polyline", { points: pts.map((p) => p.join(",")).join(" "), class: "way-route" }, root);
+    const start = mk("circle", { cx: pts[0][0], cy: pts[0][1], r: 7, class: "way-start" }, root);
+    const goal = mk("g", { class: "way-goal" }, root);
+    mk("circle", { cx: pts[pts.length - 1][0], cy: pts[pts.length - 1][1], r: 11 }, goal);
+    mk("path", { d: `M${pts[pts.length - 1][0] - 5} ${pts[pts.length - 1][1]} l4 4 7-8` }, goal);
+    return { walls, dots, route, start, goal };
+  };
+
+  if (!hasGSAP || reduceMotion) {
+    const b = build(); b.dots.forEach((d) => (d.style.opacity = .5)); return;
+  }
+  let inView = false, running = false;
+  const cycle = () => {
+    if (!inView || document.hidden) { running = false; return; }
+    running = true;
+    const b = build();
+    const L = b.route.getTotalLength();
+    b.route.style.strokeDasharray = L; b.route.style.strokeDashoffset = L;
+    const pos = { d: 0 };
+    gsap.set(root, { opacity: 1 });
+    gsap.set(b.walls.children, { opacity: 0 });
+    gsap.set(b.dots, { opacity: 0, scale: 0, transformOrigin: "center" });
+    gsap.set(b.goal, { opacity: 0, scale: .4, transformOrigin: "center" });
+    gsap.timeline({ onComplete: cycle })
+      .to(b.walls.children, { opacity: 1, duration: .25, stagger: { each: .012, from: "random" } })
+      .to(b.dots, { opacity: .55, scale: 1, duration: .2, stagger: .045 }, "+=.2")
+      .to(b.route, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut" }, "+=.1")
+      .to(b.dots, { opacity: .12, duration: .6 }, "<")
+      .to(b.walls.children, { opacity: .45, duration: .8 }, "<")
+      .to(pos, { d: L, duration: 1.8, ease: "power1.inOut", onUpdate: () => { const p = b.route.getPointAtLength(pos.d); b.start.setAttribute("cx", p.x); b.start.setAttribute("cy", p.y); } })
+      .to(b.goal, { opacity: 1, scale: 1, duration: .5, ease: "back.out(2.4)" }, "-=.2")
+      .to({}, { duration: 2.2 })
+      .to(root, { opacity: 0, duration: .6 });
+  };
+  ScrollTrigger.create({ trigger: svg, start: "top bottom", end: "bottom top", onToggle: (st) => { inView = st.isActive; if (inView && !running) cycle(); } });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && inView && !running) cycle(); });
 }
 
 /* =================================================================
