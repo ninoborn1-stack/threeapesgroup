@@ -13,7 +13,7 @@
    n  = Anzahl vergleichbarer Aufgaben   ← PLATZHALTER: echte Zahlen eintragen
    ================================================================= */
 (function () {
-  const CASES = [
+  let CASES = [
     { id: "web", t: "Website bringt keine Kunden", ex: "Unsere Website bringt keine Kunden", a: ["Web & Software", "Strategie"], d: [28, 70], cx: 2, h: "3–5", n: 6,
       k: ["website", "webseite", "homepage", "seite bringt", "keine kunden", "keine anfragen", "sichtbar", "google", "seo", "conversion", "landingpage"],
       r: ["Webentwicklung", "Text & Angebot", "SEO"], s: ["Seite und Zahlen in wenigen Tagen ansehen", "Angebot, Texte und Wege zur Anfrage schärfen", "Umbauen, messen, nachziehen"], q: ["Woher kommen eure Besucher heute?", "Was soll ein Besucher am Ende tun?"] },
@@ -87,25 +87,32 @@
       k: ["location", "raum", "räume", "halle", "büro", "studio", "atelier", "proberaum", "lager"],
       r: ["Immobilien-Kontakte", "Eventplanung"], s: ["Bedarf klären", "Passende Orte im Netzwerk erfragen", "Besichtigung einfädeln"], q: ["Welche Stadt?", "Ab wann und wie lange?"] },
   ];
-  const GENERIC = { id: "open", t: "Dein Anliegen", a: ["Weiß nicht"], d: [7, 35], cx: 2, h: "2–5", n: 0,
+  let GENERIC = { id: "open", t: "Dein Anliegen", a: ["Weiß nicht"], d: [7, 35], cx: 2, h: "2–5", n: 0,
     r: ["Wir hören uns im Netzwerk um"], s: ["Kurzes Gespräch, um es zu verstehen", "Die richtigen Leute im Netzwerk finden", "Lösung gemeinsam umsetzen"], q: ["Was ist das Ziel?", "Bis wann soll es gelöst sein?"] };
 
-  const SITE = [
+  let SITE = [
     { t: "Startseite", u: "index.html", k: ["start", "home", "überblick"] },
     { t: "Manifest", d: "Wofür wir stehen. Die drei Affen.", u: "manifest.html", k: ["manifest", "werte", "regeln", "drei affen", "diskretion", "prinzip", "wer seid"] },
-    { t: "Netzwerk", d: "Über 1.000 Köpfe aus mehr als 18 Branchen.", u: "netzwerk.html", k: ["netzwerk", "köpfe", "branchen", "kontakte", "mitmachen", "teil werden", "verwaltung"] },
+    { t: "Netzwerk", d: "Über 150 Köpfe aus mehr als 15 Branchen.", u: "netzwerk.html", k: ["netzwerk", "köpfe", "branchen", "kontakte", "mitmachen", "teil werden", "verwaltung"] },
     { t: "Leistungen", d: "Elf Felder, in denen wir selbst arbeiten.", u: "leistungen.html", k: ["leistung", "angebot", "service", "was macht", "können"] },
     { t: "Projekte", d: "Geschwärzte Akten. Gelöste Fälle.", u: "projekte.html", k: ["projekt", "akten", "fälle", "referenz", "beispiele", "convention"] },
-    { t: "Partner", d: "Galerien, Künstler, Labels und Sponsoren.", u: "partner.html", k: ["partner", "galerie", "künstler", "label", "sponsor"] },
+    { t: "Partner", d: "Bunkerwest, Sponsoring und Kulturförderung.", u: "partner.html", k: ["partner", "galerie", "künstler", "label", "sponsor"] },
     { t: "Anfrage", d: "Problem schildern. Ein Satz reicht.", u: "anfrage.html", k: ["anfrage", "kontakt", "schreiben", "mail", "sondercode", "code", "budget", "termin"] },
     { t: "Impressum", u: "impressum.html", k: ["impressum", "adresse", "anbieter"] },
     { t: "Datenschutz", u: "datenschutz.html", k: ["datenschutz", "daten", "dsgvo", "cookies"] },
   ];
-  (window.NETWORK ? NETWORK.inner : []).forEach((n) => SITE.push({ t: n.l, d: "Leistung", u: "leistungen.html#" + n.slug, k: [n.l.toLowerCase(), ...n.k.slice(0, 5)] }));
+  // Englische Seite: Texte aus assets/js/en.js, Zahlen und Stichwörter bleiben aus CASES
+  const AEN = window.LANG === "en" && window.ASSIST_EN;
+  if (AEN) {
+    CASES = CASES.map((c) => { const e = AEN.cases[c.id] || {}; return { ...c, ...e, k: [...(e.k || []), ...c.k].filter((x) => x !== "it") }; });
+    GENERIC = { ...GENERIC, ...AEN.generic };
+    SITE = AEN.site;
+  }
+  (window.NETWORK ? NETWORK.inner : []).forEach((n) => SITE.push({ t: n.l, d: T("Leistung"), u: "leistungen.html#" + n.slug, k: [n.l.toLowerCase(), ...n.k.slice(0, 5)] }));
 
-  const URGENT = ["dringend", "sofort", "asap", "eilig", "notfall", "heute noch", "bis morgen", "morgen", "schnellstens", "akut", "gestern"];
-  const NOBUDGET = ["kein budget", "kein geld", "ohne budget", "ohne geld", "knapp bei kasse", "wenig geld", "kaum budget", "kaum geld", "wenig budget", "kleines budget", "kostenlos", "umsonst"];
-  const SECRET = ["diskret", "vertraulich", "anonym", "geheim", "niemand wissen", "unter uns"];
+  const URGENT = ["urgent", "immediately", "right away", "today", "tomorrow", "emergency", "dringend", "sofort", "asap", "eilig", "notfall", "heute noch", "bis morgen", "morgen", "schnellstens", "akut", "gestern"];
+  const NOBUDGET = ["no budget", "no money", "low budget", "small budget", "tight budget", "for free", "kein budget", "kein geld", "ohne budget", "ohne geld", "knapp bei kasse", "wenig geld", "kaum budget", "kaum geld", "wenig budget", "kleines budget", "kostenlos", "umsonst"];
+  const SECRET = ["discreet", "confidential", "anonymous", "secret", "nobody knows", "diskret", "vertraulich", "anonym", "geheim", "niemand wissen", "unter uns"];
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const norm = (s) => " " + String(s).toLowerCase().replace(/[„“"!?.,;:()]/g, " ").replace(/\s+/g, " ") + " ";
@@ -135,47 +142,48 @@
     const roles = [...new Set([c, ...extra.map((x) => x.c)].flatMap((x) => x.r))].slice(0, 5);
     const n = top ? c.n + extra.reduce((a, x) => a + Math.round(x.c.n / 2), 0) : 0;
     const notes = [];
-    if (urgent) notes.push("Eilt? Wir ziehen es vor. Erste Schritte oft schon am selben Tag.");
-    if (any(t, NOBUDGET)) notes.push("Wenig Budget heißt nicht keine Lösung: Sponsoring, Förderung oder Partner sind oft ein Weg.");
-    if (any(t, SECRET)) notes.push("Läuft vollständig unter Verschluss. Namen bleiben geschwärzt.");
-    if (words < 4) notes.push("Mit ein, zwei Sätzen mehr wird die Einschätzung genauer.");
+    if (urgent) notes.push(T("Eilt? Wir ziehen es vor. Erste Schritte oft schon am selben Tag."));
+    if (any(t, NOBUDGET)) notes.push(T("Wenig Budget heißt nicht keine Lösung: Sponsoring, Förderung oder Partner sind oft ein Weg."));
+    if (any(t, SECRET)) notes.push(T("Läuft vollständig unter Verschluss. Namen bleiben geschwärzt."));
+    if (words < 4) notes.push(T("Mit ein, zwei Sätzen mehr wird die Einschätzung genauer."));
     return { text, case: c, matched: !!top, also: extra.map((x) => x.c), areas, urgent, lo, hi, cx, conf, roles, n, notes };
   }
 
   const span = (lo, hi) => {
-    const f = (d) => (d < 14 ? d + (d === 1 ? " Tag" : " Tage") : Math.round(d / 7) + " Wochen");
-    if (hi < 14) return `${lo}–${hi} Tage`;
-    if (lo >= 14) return `${Math.round(lo / 7)}–${Math.round(hi / 7)} Wochen`;
-    return `${f(lo)} bis ${f(hi)}`;
+    const en = window.LANG === "en", DAY = en ? " day" : " Tag", DAYS = en ? " days" : " Tage", WEEKS = en ? " weeks" : " Wochen";
+    const f = (d) => (d < 14 ? d + (d === 1 ? DAY : DAYS) : Math.round(d / 7) + WEEKS);
+    if (hi < 14) return `${lo}–${hi}${DAYS}`;
+    if (lo >= 14) return `${Math.round(lo / 7)}–${Math.round(hi / 7)}${WEEKS}`;
+    return `${f(lo)}${en ? " to " : " bis "}${f(hi)}`;
   };
-  const CX = ["", "Überschaubar", "Mittel", "Hoch"];
-  const CONF = ["Grobe Einschätzung", "Erste Einschätzung", "Gute Einschätzung", "Sehr gut einschätzbar"];
+  const CX = ["", "Überschaubar", "Mittel", "Hoch"].map(T);
+  const CONF = ["Grobe Einschätzung", "Erste Einschätzung", "Gute Einschätzung", "Sehr gut einschätzbar"].map(T);
 
   function render(r, opts = {}) {
     const c = r.case;
     const head = r.matched
       ? `<h4>${esc(c.t)}${r.also.length ? ` <em>+ ${r.also.map((x) => esc(x.t)).join(", ")}</em>` : ""}</h4>`
-      : `<h4>Kein bekanntes Muster. <em>Genau dafür gibt es uns.</em></h4>`;
+      : `<h4>${T("Kein bekanntes Muster.")} <em>${T("Genau dafür gibt es uns.")}</em></h4>`;
     const take = opts.take || "";
     return `
       <div class="asx" data-cx="${r.cx}">
         <div class="asx__head">
-          <span class="asx__tag mono">${r.urgent ? '<i class="asx__urg">Eilt</i>' : ""}Einschätzung · ${CONF[r.conf]}</span>
+          <span class="asx__tag mono">${r.urgent ? '<i class="asx__urg">' + T("Eilt") + '</i>' : ""}${T("Einschätzung")} · ${CONF[r.conf]}</span>
           ${head}
-          <p>Für uns gibt es keine Probleme, nur Wege. So würde dieser aussehen:</p>
+          <p>${T("Für uns gibt es keine Probleme, nur Wege. So würde dieser aussehen:")}</p>
         </div>
         <div class="asx__kpis">
-          <div class="asx__kpi"><span class="mono">Zeit bis zur Lösung</span><b>${span(r.lo, r.hi)}</b><small>${r.urgent ? "Erste Schritte sofort" : "Antwort innerhalb von 48 h"}</small></div>
-          <div class="asx__kpi"><span class="mono">Aufwand</span><b>${CX[r.cx]}</b><i class="asx__lvl" aria-hidden="true">${[1, 2, 3].map((i) => `<span class="${i <= r.cx ? "on" : ""}"></span>`).join("")}</i></div>
-          <div class="asx__kpi"><span class="mono">Im Netzwerk dran</span><b>${esc(c.h)} Köpfe</b><small>${r.roles.map(esc).join(" · ")}</small></div>
+          <div class="asx__kpi"><span class="mono">${T("Zeit bis zur Lösung")}</span><b>${span(r.lo, r.hi)}</b><small>${r.urgent ? T("Erste Schritte sofort") : T("Antwort innerhalb von 48 h")}</small></div>
+          <div class="asx__kpi"><span class="mono">${T("Aufwand")}</span><b>${CX[r.cx]}</b><i class="asx__lvl" aria-hidden="true">${[1, 2, 3].map((i) => `<span class="${i <= r.cx ? "on" : ""}"></span>`).join("")}</i></div>
+          <div class="asx__kpi"><span class="mono">${T("Im Netzwerk dran")}</span><b>${esc(c.h)} ${T("Köpfe")}</b><small>${r.roles.map(esc).join(" · ")}</small></div>
         </div>
         <div class="asx__cols">
-          <div><span class="mono">So gehen wir vor</span><ol>${c.s.map((x) => `<li>${esc(x)}</li>`).join("")}</ol></div>
-          <div><span class="mono">Das hilft uns noch</span><ul>${c.q.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
+          <div><span class="mono">${T("So gehen wir vor")}</span><ol>${c.s.map((x) => `<li>${esc(x)}</li>`).join("")}</ol></div>
+          <div><span class="mono">${T("Das hilft uns noch")}</span><ul>${c.q.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>
         </div>
         ${r.notes.length ? `<ul class="asx__notes">${r.notes.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
         <div class="asx__foot">
-          <span class="mono">${r.n ? `Basis: ${r.n} vergleichbare Aufgaben` : "Basis: allgemeine Erfahrungswerte"} · unverbindlich</span>
+          <span class="mono">${r.n ? `${T("Basis:")} ${r.n} ${T("vergleichbare Aufgaben")}` : T("Basis: allgemeine Erfahrungswerte")} · ${T("unverbindlich")}</span>
           ${take}
         </div>
       </div>`;
@@ -222,7 +230,7 @@
       const list = suggest(input.value);
       items = list;
       if (!list.length) return close();
-      box.innerHTML = `<span class="asx-sug__h mono">${input.value.trim().length < 2 ? "Häufig gefragt" : "Klingt nach"}</span>` +
+      box.innerHTML = `<span class="asx-sug__h mono">${input.value.trim().length < 2 ? T("Häufig gefragt") : T("Klingt nach")}</span>` +
         list.map((c, i) => `<button type="button" role="option" data-i="${i}" class="${i === idx ? "is-sel" : ""}"><b>${esc(c.t)}</b><span class="mono">${span(c.d[0], c.d[1])}</span></button>`).join("");
       box.classList.add("is-on");
       input.setAttribute("aria-expanded", "true");

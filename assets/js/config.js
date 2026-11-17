@@ -3,6 +3,11 @@
    Alles, was du regelmäßig anpassen willst, steht in dieser Datei.
    ================================================================= */
 
+// Sprache: deutsche Seiten im Hauptordner, englische unter /en/ (gebaut mit _i18n/build_en.py)
+window.LANG = document.documentElement.lang === "en" ? "en" : "de";
+window.BASE = window.LANG === "en" ? "../" : "";
+window.T = (s) => (window.LANG === "en" && window.EN_UI && window.EN_UI[s]) || s;
+
 window.CONFIG = {
   // Sondercodes werden nur als Hash gespeichert, damit sie nicht im Klartext im Quelltext stehen.
   // Neuen Code anlegen: Seite öffnen, in der Browser-Konsole  TAG.hash("MEINCODE")  eingeben

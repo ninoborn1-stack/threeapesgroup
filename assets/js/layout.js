@@ -4,59 +4,69 @@
    ================================================================= */
 (function () {
   const MAIL = "kontakt@threeapesgroup.com";
-  const PAGES = [
-    ["manifest.html", "Manifest"],
-    ["netzwerk.html", "Netzwerk"],
-    ["leistungen.html", "Leistungen"],
-    ["projekte.html", "Projekte"],
-    ["partner.html", "Partner"],
-  ];
   const here = location.pathname.split("/").pop() || "index.html";
+  const PAGES = [
+    ["manifest.html", T("Manifest")],
+    ["netzwerk.html", T("Netzwerk")],
+    ["leistungen.html", T("Leistungen")],
+    ["projekte.html", T("Projekte")],
+    ["partner.html", T("Partner")],
+  ];
+  // Sprachumschalter: gleiche Seite in der anderen Sprache
+  const EN = window.LANG === "en";
+  const tail = (here === "index.html" ? "" : here) + location.search + location.hash;
+  const deHref = (EN ? "../" : "") + tail || "./";
+  const enHref = (EN ? "" : "en/") + tail || "./";
+  const lang = (cls) => `<div class="lang ${cls} mono" role="group" aria-label="${T("Sprache")}">
+      <a href="${deHref}" hreflang="de" lang="de"${EN ? "" : ' class="is-on" aria-current="true"'}>DE</a><span aria-hidden="true">/</span><a href="${enHref}" hreflang="en" lang="en"${EN ? ' class="is-on" aria-current="true"' : ""}>EN</a>
+    </div>`;
   const active = (h) => here === h || (h === "projekte.html" && here === "projekt.html");
 
   const nav = `
   <header class="nav" id="nav">
     <a href="index.html" class="nav__brand">
-      <img src="assets/img/emblem.webp" alt="" width="44" height="30" />
+      <img src="${window.BASE}assets/img/emblem.webp" alt="" width="44" height="30" />
       <span>ThreeApes<b>Group</b></span>
     </a>
-    <nav class="nav__links" aria-label="Hauptnavigation">
+    <nav class="nav__links" aria-label="${T("Hauptnavigation")}">
       ${PAGES.map(([h, l]) => `<a href="${h}" data-scramble${active(h) ? ' class="is-active" aria-current="page"' : ""}>${l}</a>`).join("")}
     </nav>
-    <a href="anfrage.html" class="btn btn--peach btn--sm">Anfrage</a>
-    <button class="nav__burger" id="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span></button>
+    ${lang("lang--nav")}
+    <a href="anfrage.html" class="btn btn--peach btn--sm">${T("Anfrage")}</a>
+    <button class="nav__burger" id="burger" aria-label="${T("Menü öffnen")}" aria-expanded="false"><span></span><span></span></button>
   </header>
   <div class="menu" id="menu" aria-hidden="true">
     <div class="menu__bg"></div>
     <nav class="menu__links">
-      <a href="index.html"><i class="mono">00</i>Start</a>
+      <a href="index.html"><i class="mono">00</i>${T("Start")}</a>
       ${PAGES.map(([h, l], i) => `<a href="${h}"><i class="mono">0${i + 1}</i>${l}</a>`).join("")}
-      <a href="anfrage.html"><i class="mono">06</i>Anfrage</a>
+      <a href="anfrage.html"><i class="mono">06</i>${T("Anfrage")}</a>
     </nav>
-    <p class="menu__foot mono">Berlin — diskret seit 2026<br/>${MAIL}</p>
+    ${lang("lang--menu")}
+    <p class="menu__foot mono">${T("Berlin — diskret seit 2026")}<br/>${MAIL}</p>
   </div>`;
 
   const footer = `
   <footer class="footer">
     <div class="footer__top">
       <div>
-        <p class="mono footer__label">Kontakt</p>
+        <p class="mono footer__label">${T("Kontakt")}</p>
         <a href="mailto:${MAIL}" class="footer__mail">${MAIL}</a>
-        <p class="footer__note">Wir antworten innerhalb von 48 Stunden. Was du schreibst, bleibt bei uns.</p>
+        <p class="footer__note">${T("Wir antworten innerhalb von 48 Stunden. Was du schreibst, bleibt bei uns.")}</p>
       </div>
       <div class="footer__cols">
-        <div><p class="mono footer__label">Seiten</p>
-          <a href="index.html" data-scramble>Start</a>${PAGES.map(([h, l]) => `<a href="${h}" data-scramble>${l}</a>`).join("")}<a href="anfrage.html" data-scramble>Anfrage</a>
+        <div><p class="mono footer__label">${T("Seiten")}</p>
+          <a href="index.html" data-scramble>${T("Start")}</a>${PAGES.map(([h, l]) => `<a href="${h}" data-scramble>${l}</a>`).join("")}<a href="anfrage.html" data-scramble>${T("Anfrage")}</a>
         </div>
         <div><p class="mono footer__label">Social</p><a href="#" data-scramble>Instagram</a><a href="#" data-scramble>LinkedIn</a><a href="#" data-scramble>TikTok</a></div>
-        <div><p class="mono footer__label">Rechtliches</p><a href="impressum.html" data-scramble>Impressum</a><a href="datenschutz.html" data-scramble>Datenschutz</a></div>
+        <div><p class="mono footer__label">${T("Rechtliches")}</p><a href="impressum.html" data-scramble>${T("Impressum")}</a><a href="datenschutz.html" data-scramble>${T("Datenschutz")}</a></div>
       </div>
     </div>
     <div class="footer__giant" aria-hidden="true"><span>Three</span><span>Apes</span><span>Group</span></div>
     <div class="footer__bottom mono">
       <span>© 2026 ThreeApesGroup — Berlin</span>
-      <span>Wir sehen nichts. Wir lösen alles.</span>
-      <a href="#top" data-scramble>Nach oben ↑</a>
+      <span>${T("Wir sehen nichts. Wir lösen alles.")}</span>
+      <a href="#top" data-scramble>${T("Nach oben ↑")}</a>
     </div>
   </footer>`;
 

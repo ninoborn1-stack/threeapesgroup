@@ -110,14 +110,14 @@ function initForm() {
     if (entry) {
       activeCode = raw;
       codeMsg.className = "code__msg mono is-ok";
-      codeMsg.textContent = "✓ Code akzeptiert. Budgets unter 2.500 € und Partnerschaftsanfragen sind jetzt freigeschaltet.";
-      codeInput.disabled = true; codeBtn.disabled = true; codeBtn.textContent = "Aktiv";
+      codeMsg.textContent = T("✓ Code akzeptiert. Budgets unter 2.500 € und Partnerschaftsanfragen sind jetzt freigeschaltet.");
+      codeInput.disabled = true; codeBtn.disabled = true; codeBtn.textContent = T("Aktiv");
       unlock(entry.unlock);
     } else {
       void codeBox.offsetWidth;
       codeBox.classList.add("is-shake");
       codeMsg.className = "code__msg mono is-err";
-      codeMsg.textContent = "Dieser Code ist uns nicht bekannt.";
+      codeMsg.textContent = T("Dieser Code ist uns nicht bekannt.");
     }
   };
   codeBtn.addEventListener("click", checkCode);
@@ -129,7 +129,7 @@ function initForm() {
     e.preventDefault();
     if (codeToggle.getAttribute("aria-expanded") !== "true") openCode(true);
     codeMsg.className = "code__msg mono is-err";
-    codeMsg.textContent = "Dafür brauchst du einen Sondercode.";
+    codeMsg.textContent = T("Dafür brauchst du einen Sondercode.");
   });
 
   // Vorbelegung über die Adresse: ?problem=…&bereich=KI,Web%20%26%20Software&typ=Partnerschaft
@@ -144,7 +144,7 @@ function initForm() {
         form.dataset.wantType = type;
         openCode(true);
         codeMsg.className = "code__msg mono is-err";
-        codeMsg.textContent = "Partnerschaften gibt es nur mit Sondercode.";
+        codeMsg.textContent = T("Partnerschaften gibt es nur mit Sondercode.");
       }
     }
   };
@@ -165,11 +165,11 @@ function initForm() {
     };
     req("name", "Name");
     const email = req("email", "E-Mail");
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errors.push("gültige E-Mail"); form.elements.email.closest(".field").classList.add("is-invalid"); }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errors.push(T("gültige E-Mail")); form.elements.email.closest(".field").classList.add("is-invalid"); }
     req("message", "Problembeschreibung");
-    if (!fd.get("budget")) errors.push("Budgetrahmen");
-    if (!fd.get("consent")) { errors.push("Einwilligung"); form.querySelector(".consent").classList.add("is-invalid"); }
-    if (errors.length) { errorEl.textContent = "Bitte noch ergänzen: " + errors.join(", ") + "."; return; }
+    if (!fd.get("budget")) errors.push(T("Budgetrahmen"));
+    if (!fd.get("consent")) { errors.push(T("Einwilligung")); form.querySelector(".consent").classList.add("is-invalid"); }
+    if (errors.length) { errorEl.textContent = T("Bitte noch ergänzen: ") + errors.join(", ") + "."; return; }
     errorEl.textContent = "";
 
     const data = {
@@ -188,7 +188,7 @@ function initForm() {
       }
       showSuccess();
     } catch (err) {
-      errorEl.textContent = "Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns direkt.";
+      errorEl.textContent = T("Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns direkt.");
     }
   });
 
@@ -212,7 +212,7 @@ function initMenu() {
   if (!burger || !menu) return;
   const set = (open) => {
     burger.setAttribute("aria-expanded", open);
-    burger.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+    burger.setAttribute("aria-label", open ? T("Menü schließen") : T("Menü öffnen"));
     menu.classList.toggle("is-open", open);
     menu.setAttribute("aria-hidden", !open);
   };
@@ -293,9 +293,9 @@ function initProbes() {
       const chips = (guessed ? [] : names).slice(0, 6).map((n, i) => `<span class="hit" style="--i:${i}">${esc(n)}</span>`).join("");
       const heads = guessed ? 3 : names.length * 3 + 2;
       const action = mode === "inquiry"
-        ? `<span class="probe__note">Ins Formular übernommen. Unten ergänzen und absenden.</span>`
-        : `<a class="probe__take" href="${$("#inquiryForm") ? "#anfrage" : inquiryUrl(text, areas)}">Als Anfrage übernehmen →</a>`;
-      const more = firstMatch ? `<a class="probe__more" href="#${firstMatch.id}">${nMatch === 1 ? "1 passende Leistung" : nMatch + " passende Leistungen"} unten markiert ↓</a>` : "";
+        ? `<span class="probe__note">${T("Ins Formular übernommen. Unten ergänzen und absenden.")}</span>`
+        : `<a class="probe__take" href="${$("#inquiryForm") ? "#anfrage" : inquiryUrl(text, areas)}">${T("Als Anfrage übernehmen →")}</a>`;
+      const more = firstMatch ? `<a class="probe__more" href="#${firstMatch.id}">${nMatch === 1 ? T("1 passende Leistung") : nMatch + T(" passende Leistungen")}${T(" unten markiert ↓")}</a>` : "";
       result.innerHTML = ax ? ASSIST.render(ax, { take: more + action }) : `<span class="probe__hits">${chips}</span>${more}${action}`;
       const moreA = $(".probe__more", result);
       if (moreA) moreA.addEventListener("click", (ev) => { ev.preventDefault(); window.lenisInstance ? lenisInstance.scrollTo(firstMatch, { offset: -120, duration: 1.4 }) : firstMatch.scrollIntoView({ behavior: "smooth" }); });
@@ -320,7 +320,7 @@ function initProbes() {
   // lange Platzhalter auf schmalen Bildschirmen kürzen
   const shortPh = () => $$("form[data-probe] input").forEach((i) => {
     i.dataset.ph = i.dataset.ph || i.placeholder;
-    i.placeholder = window.innerWidth < 560 && i.dataset.ph.length > 28 ? "Dein Problem in einem Satz" : i.dataset.ph;
+    i.placeholder = window.innerWidth < 560 && i.dataset.ph.length > 28 ? T("Dein Problem in einem Satz") : i.dataset.ph;
   });
   shortPh(); window.addEventListener("resize", shortPh);
   // Problem aus der Adresse übernehmen (z. B. netzwerk.html?problem=…)
@@ -451,7 +451,7 @@ function initAnimations() {
       const st = { p: 0, sweep: -1, land: 0, fade: 1 };
       let box = null, dest = null, raf = 0;
       const img = new Image();
-      img.src = "assets/img/emblem.webp";
+      img.src = window.BASE + "assets/img/emblem.webp";
       const ready = new Promise((r) => { img.onload = r; img.onerror = r; setTimeout(r, 2500); });
       ready.then(() => {
         if (!img.naturalWidth) return;
@@ -631,7 +631,7 @@ function initAnimations() {
 
   $$("[data-count]").forEach((el) => {
     const target = +el.dataset.count; const o = { v: 0 };
-    gsap.to(o, { v: target, duration: 2, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" }, onUpdate: () => (el.textContent = el.hasAttribute("data-sep") ? Math.round(o.v).toLocaleString("de-DE") : Math.round(o.v)) });
+    gsap.to(o, { v: target, duration: 2, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" }, onUpdate: () => (el.textContent = el.hasAttribute("data-sep") ? Math.round(o.v).toLocaleString(window.LANG === "en" ? "en-US" : "de-DE") : Math.round(o.v)) });
   });
 
   initEye();
@@ -833,7 +833,7 @@ function initVault() {
   halo.forEach((h, i) => gsap.fromTo(h, { attr: { r: 16 }, opacity: .5 }, { attr: { r: 60 }, opacity: 0, duration: 3.2, ease: "power1.out", repeat: -1, delay: i * 1.6 }));
 
   // Fragen von außen
-  const QS = ["Wer?", "Kunde?", "Name?", "Wie viel?", "Worum geht's?", "Für wen?", "Was genau?", "Wer noch?"];
+  const QS = ["Wer?", "Kunde?", "Name?", "Wie viel?", "Worum geht's?", "Für wen?", "Was genau?", "Wer noch?"].map(T);
   const hit = (s, d) => { // Strahl s→Mitte trifft Kante?
     let best = null;
     edges.forEach((l, i) => {
@@ -884,8 +884,8 @@ function initWay() {
   const C = 9, R = 6, S = 38, X0 = 200 - (C * S) / 2, Y0 = 26;
   const cx = (c) => X0 + c * S + S / 2, cy = (r) => Y0 + r * S + S / 2;
   const root = mk("g", {});
-  mk("text", { x: X0 - 2, y: Y0 + R * S + 32, class: "way-tag" }, svg).textContent = "PROBLEM";
-  mk("text", { x: X0 + C * S + 2, y: Y0 + R * S + 32, class: "way-tag way-tag--end", "text-anchor": "end" }, svg).textContent = "WEG";
+  mk("text", { x: X0 - 2, y: Y0 + R * S + 32, class: "way-tag" }, svg).textContent = T("PROBLEM");
+  mk("text", { x: X0 + C * S + 2, y: Y0 + R * S + 32, class: "way-tag way-tag--end", "text-anchor": "end" }, svg).textContent = T("WEG");
 
   const build = () => {
     root.innerHTML = "";
@@ -978,7 +978,7 @@ function initDots(svg) {
   const vb = svg.viewBox.baseVal, W = vb.width, H = vb.height;
   const trig = svg.closest("[data-dots-trigger]") || svg.parentElement;
   const img = new Image();
-  img.src = "assets/img/emblem.webp";
+  img.src = window.BASE + "assets/img/emblem.webp";
   img.onload = () => {
     const sx = full ? 0 : img.width * .335, sw = full ? img.width : img.width * .33;
     const sy = full ? 0 : img.height * .1, sh = full ? img.height : img.height * .84;

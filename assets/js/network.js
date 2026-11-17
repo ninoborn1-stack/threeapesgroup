@@ -102,7 +102,7 @@ window.initNetwork = function (svg, opts = {}) {
     const ring1 = el("circle", { class: "nw-core-ring", cx, cy, r: coreR + 16, "stroke-dasharray": "3 9" }, gCore);
     const ring2 = el("circle", { class: "nw-core-ring nw-core-ring--b", cx, cy, r: coreR + 34, "stroke-dasharray": "40 14 4 14" }, gCore);
     el("circle", { class: "nw-core-bg", cx, cy, r: coreR }, gCore);
-    el("image", { href: "assets/img/emblem.webp", x: cx - coreR * .8, y: cy - coreR * .56, width: coreR * 1.6, height: coreR * 1.1, preserveAspectRatio: "xMidYMid meet" }, gCore);
+    el("image", { href: window.BASE + "assets/img/emblem.webp", x: cx - coreR * .8, y: cy - coreR * .56, width: coreR * 1.6, height: coreR * 1.1, preserveAspectRatio: "xMidYMid meet" }, gCore);
     gsap.to(ring1, { rotate: 360, svgOrigin: `${cx} ${cy}`, duration: 26, repeat: -1, ease: "none" });
     gsap.to(ring2, { rotate: -360, svgOrigin: `${cx} ${cy}`, duration: 40, repeat: -1, ease: "none" });
 

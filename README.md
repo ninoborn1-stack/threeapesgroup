@@ -52,3 +52,10 @@ Die Dateien werden mit `?v=13` eingebunden. Nach größeren Änderungen die Zahl
 - Datei: `assets/js/assist.js`. Läuft komplett im Browser, ohne Server.
 - Jedes Suchfeld (Startseite, Netzwerk, Leistungen, Anfrage) zeigt beim Tippen Vorschläge und nach dem Absenden eine Einschätzung: Zeit bis zur Lösung, Aufwand, beteiligte Köpfe, Vorgehen, Rückfragen.
 - Falltypen, Zeitrahmen und Stichwörter stehen oben in `assist.js` unter `CASES`. **`n` (Anzahl vergleichbarer Aufgaben) und `d` (Tage) sind Platzhalter: echte Erfahrungswerte eintragen.**
+
+## Zweisprachig (Deutsch / Englisch)
+- Deutsch ist die Quelle. Die englischen Seiten liegen unter `en/` und werden erzeugt, nie von Hand bearbeitet.
+- Nach jeder Textänderung an einer deutschen Seite: `python3 _i18n/build_en.py`. Das Skript nennt jeden neuen deutschen Text ohne Übersetzung. Diesen in `_i18n/en.json` eintragen (`"Deutsch": "English"`) und erneut bauen.
+- Sätze mit Auszeichnung (z. B. `<em>`), die sich Stück für Stück schlecht übersetzen, stehen in `en.json` als ganzer HTML-Block.
+- Texte aus den Skripten (Menü, Footer, Formular-Meldungen, Problem-Assistent, Netzwerk-Grafik) stehen in `assets/js/en.js`.
+- Der Umschalter DE / EN oben rechts führt immer auf dieselbe Seite in der anderen Sprache. `hreflang` setzt das Skript automatisch.

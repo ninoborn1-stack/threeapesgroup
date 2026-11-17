@@ -1587,3 +1587,15 @@ html.asxo-open { overflow: hidden; }
   .phero__dots, .phero__art, .phero__way { width: min(100%, 60vh); }
   .phero__main .phero__facts { gap: 6px 26px; }
 }
+
+/* Sprachumschalter DE / EN */
+.lang { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .1em; }
+.lang a { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; min-height: 36px; opacity: .55; transition: opacity .3s, color .3s; }
+.lang a:hover { opacity: 1; color: var(--peach); }
+.lang a.is-on { opacity: 1; color: var(--peach); }
+.lang span { opacity: .35; }
+.lang--nav { margin-left: -6px; }
+.lang--menu { display: none; }
+.nav:has(.nav__burger[aria-expanded="true"]) .lang a { color: var(--forest); }
+.nav:has(.nav__burger[aria-expanded="true"]) .lang a.is-on { color: var(--forest); text-decoration: underline; text-underline-offset: 5px; }
+@media (max-width: 1024px) { .lang--nav { margin-left: 0; } .nav { gap: 14px; } }
