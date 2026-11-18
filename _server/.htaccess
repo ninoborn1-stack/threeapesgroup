@@ -1,0 +1,9 @@
+# Nur anfrage.php ist von außen erreichbar
+Options -Indexes
+<FilesMatch "^(config|config\.sample|mail_templates)\.php$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "\.(md|n)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.rate
