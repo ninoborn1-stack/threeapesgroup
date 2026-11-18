@@ -22,6 +22,7 @@ window.EN_UI = {
   "gültige E-Mail": "a valid email", "Budgetrahmen": "budget range", "Einwilligung": "consent",
   "Bitte noch ergänzen: ": "Please add: ",
   "Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns direkt.": "That didn't work. Please try again or email us directly.",
+  "Zu viele Anfragen in kurzer Zeit. Bitte versuch es später noch einmal oder schreib uns direkt.": "Too many inquiries in a short time. Please try again later or email us directly.",
   // Probe / search
   "Ins Formular übernommen. Unten ergänzen und absenden.": "Added to the form. Complete it below and send.",
   "Als Anfrage übernehmen →": "Turn into an inquiry →",

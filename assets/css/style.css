@@ -1599,3 +1599,17 @@ html.asxo-open { overflow: hidden; }
 .nav:has(.nav__burger[aria-expanded="true"]) .lang a { color: var(--forest); }
 .nav:has(.nav__burger[aria-expanded="true"]) .lang a.is-on { color: var(--forest); text-decoration: underline; text-underline-offset: 5px; }
 @media (max-width: 1024px) { .lang--nav { margin-left: 0; } .nav { gap: 14px; } }
+
+/* Spamfalle im Formular: für Menschen unsichtbar */
+.hp-field { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+
+/* Review 10 — Unterseiten-Hero: Grafik rückt an den Text heran (Desktop) */
+@media (min-width: 1025px) {
+  .phero { grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); gap: 3.5vw; }
+  .phero__aside { justify-items: start; }
+  .phero__aside > svg { justify-self: start; }
+  .phero__dots, .phero__art, .phero__way { width: min(100%, 580px, 64vh); }
+  .principles--hero .crowd { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4vw; }
+  .principles--hero .crowd__art svg { margin: 0; max-width: min(600px, 74vh); }
+}
+@media (min-width: 1025px) { .phero__main .phero__facts { max-width: none; gap: 8px 26px; } .phero__main .phero__facts span + span::before { left: -15px; } }

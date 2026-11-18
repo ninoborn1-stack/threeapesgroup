@@ -153,6 +153,7 @@ function initForm() {
   }
 
   const errorEl = $("#formError");
+  const formStart = Date.now();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     $$(".is-invalid", form).forEach((el) => el.classList.remove("is-invalid"));
@@ -177,10 +178,21 @@ function initForm() {
       Name: fd.get("name"), EMail: fd.get("email"), Unternehmen: fd.get("company") || "–", Telefon: fd.get("phone") || "–",
       Sondercode: activeCode ? "ja" : "nein", Problem: fd.get("message"),
     };
+    const btn = form.querySelector('button[type="submit"]');
 
     try {
       if (CONFIG.formEndpoint) {
-        const res = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(data) });
+        // an anfrage.php auf dem Febas-Webspace (siehe _server/README.md)
+        const payload = {
+          type: fd.get("type") || "", budget: fd.get("budget") || "", areas: fd.getAll("area"),
+          name: fd.get("name") || "", email: fd.get("email") || "", company: fd.get("company") || "", phone: fd.get("phone") || "",
+          message: fd.get("message") || "", code: activeCode || "", consent: !!fd.get("consent"),
+          lang: window.LANG || "de", website: fd.get("website") || "", t: Date.now() - formStart,
+        };
+        if (btn) btn.disabled = true;
+        const res = await fetch(CONFIG.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
+        if (btn) btn.disabled = false;
+        if (res.status === 429) { errorEl.textContent = T("Zu viele Anfragen in kurzer Zeit. Bitte versuch es später noch einmal oder schreib uns direkt."); return; }
         if (!res.ok) throw new Error("HTTP " + res.status);
       } else {
         const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join("\n");
@@ -188,6 +200,7 @@ function initForm() {
       }
       showSuccess();
     } catch (err) {
+      if (btn) btn.disabled = false;
       errorEl.textContent = T("Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns direkt.");
     }
   });
