@@ -541,7 +541,7 @@ part += f'''
         <div class="home-base__meta">
           <div><span class="mono">Ort</span><b>Hohenzollerndamm, Berlin</b></div>
           <div><span class="mono">Was</span><b>Kunst, Ausstellungen, Events</b></div>
-          <div><span class="mono">Zusammenarbeit</span><b>Sehr eng</b></div>
+          <div><span class="mono">Für uns</span><b>Ort unserer Netzwerktreffen</b></div>
         </div>
       </div>
 
