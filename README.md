@@ -37,7 +37,7 @@ Quellen in `_src/`, veröffentlicht als Englisch (Hauptordner) und Deutsch (`de/
 | `projekt.html` | Vorlage für eine einzelne Akte |
 | `partner.html` | Enger Partner (Bunkerwest), Spannweite Sponsoring bis Kulturförderung, Partnerschaft nur mit Bewerbung oder Empfehlungscode. Keine Namen von Sponsoren |
 | `anfrage.html` | Anfrageformular mit Schnellstart |
-| `impressum.html`, `datenschutz.html` | Platzhalter, vor dem Livegang ausfüllen |
+| `impressum.html`, `datenschutz.html` | Impressum (§ 5 DDG, § 19 UStG) und Datenschutzerklärung |
 
 ## Wo du was änderst
 - **Navigation, Menü, Footer**: nur in `assets/js/layout.js`. Gilt für alle Seiten.

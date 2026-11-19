@@ -645,11 +645,11 @@ imp = '''    <section class="legal">
       <p class="label">Rechtliches</p>
       <h1>Impressum</h1>
       <h2>Angaben gemäß § 5 DDG</h2>
-      <p>Nino Bornhäußer<br/>ThreeApesGroup<br/><span class="ph">[Straße und Hausnummer]</span><br/><span class="ph">[PLZ]</span> Berlin<br/>Deutschland</p>
+      <p>Nino Bornhäußer<br/>Einzelunternehmen, handelnd unter ThreeApesGroup<br/>Am Schlachtensee 122A<br/>14129 Berlin<br/>Deutschland</p>
       <h2>Kontakt</h2>
       <p>E-Mail: <a href="mailto:kontakt@threeapesgroup.com">kontakt@threeapesgroup.com</a></p>
       <h2>Umsatzsteuer</h2>
-      <p><span class="ph">[Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG oder Hinweis auf die Kleinunternehmerregelung nach § 19 UStG]</span></p>
+      <p>Kleinunternehmer im Sinne von § 19 UStG. Es wird keine Umsatzsteuer berechnet und ausgewiesen.</p>
       <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
       <p>Nino Bornhäußer, Anschrift wie oben</p>
       <h2>Verbraucherstreitbeilegung</h2>
@@ -666,7 +666,7 @@ ds = '''    <section class="legal">
       <h1>Daten&shy;schutz</h1>
       <p>Diskretion ist unser Geschäft. Deshalb erheben wir auf dieser Seite so wenig Daten wie möglich: keine Cookies, kein Tracking, keine Analyse-Tools, keine Werbung.</p>
       <h2>1. Verantwortlicher</h2>
-      <p>Nino Bornhäußer, ThreeApesGroup, <span class="ph">[Straße und Hausnummer, PLZ]</span> Berlin<br/>E-Mail: <a href="mailto:kontakt@threeapesgroup.com">kontakt@threeapesgroup.com</a></p>
+      <p>Nino Bornhäußer, ThreeApesGroup<br/>Am Schlachtensee 122A, 14129 Berlin<br/>E-Mail: <a href="mailto:kontakt@threeapesgroup.com">kontakt@threeapesgroup.com</a></p>
       <h2>2. Hosting der Website</h2>
       <p>Die Website liegt bei GitHub Pages, einem Dienst der GitHub Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf verarbeitet GitHub technisch notwendige Daten wie deine IP-Adresse, Datum und Uhrzeit sowie die aufgerufene Seite, um die Seite auszuliefern und vor Angriffen zu schützen. Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren und stabilen Website (Art. 6 Abs. 1 lit. f DSGVO). GitHub ist nach dem EU-US Data Privacy Framework zertifiziert (Art. 45 DSGVO).</p>
       <h2>3. Kontakt per E-Mail und Anfrageformular</h2>
