@@ -10,7 +10,7 @@ window.EN_UI = {
   "Menü öffnen": "Open menu", "Menü schließen": "Close menu",
   "Berlin — diskret seit 2026": "Berlin — discreet since 2026",
   "Kontakt": "Contact", "Seiten": "Pages", "Rechtliches": "Legal", "Impressum": "Legal notice", "Datenschutz": "Privacy policy",
-  "Wir antworten innerhalb von 48 Stunden. Was du schreibst, bleibt bei uns.": "We reply within 48 hours. What you write stays with us.",
+  "Wir antworten innerhalb von 24 Stunden, sieben Tage die Woche. Was du schreibst, bleibt bei uns.": "We reply within 24 hours, seven days a week. What you write stays with us.",
   "Wir sehen nichts. Wir lösen alles.": "We see nothing. We solve everything.",
   "Nach oben ↑": "Back to top ↑",
   // Form
@@ -43,7 +43,7 @@ window.EN_UI = {
   "Kein bekanntes Muster.": "No known pattern.", "Genau dafür gibt es uns.": "That's exactly what we're for.",
   "Eilt": "Urgent", "Einschätzung": "Assessment",
   "Für uns gibt es keine Probleme, nur Wege. So würde dieser aussehen:": "For us there are no problems, only ways. This is what this one would look like:",
-  "Zeit bis zur Lösung": "Time to solution", "Erste Schritte sofort": "First steps right away", "Antwort innerhalb von 48 h": "Reply within 48 h",
+  "Zeit bis zur Lösung": "Time to solution", "Erste Schritte sofort": "First steps right away", "Antwort innerhalb von 24 h": "Reply within 24 h",
   "Aufwand": "Effort", "Im Netzwerk dran": "On it in the network", "Köpfe": "minds",
   "So gehen wir vor": "How we'd approach it", "Das hilft uns noch": "What else helps us",
   "Basis:": "Based on", "vergleichbare Aufgaben": "comparable tasks", "Basis: allgemeine Erfahrungswerte": "Based on general experience", "unverbindlich": "non-binding",

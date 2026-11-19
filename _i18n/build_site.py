@@ -1,23 +1,25 @@
 #!/usr/bin/env python3
 """
-Baut die englische Seite unter /en/ aus den deutschen HTML-Dateien.
+Baut die Website aus den deutschen Quellseiten in _src/:
+  Englisch (Standard) -> Hauptordner (index.html, netzwerk.html, ...)
+  Deutsch             -> de/
+  en/                 -> Weiterleitungen auf die alten /en/-Adressen
 
-  python3 _i18n/build_en.py            -> schreibt en/*.html
-  python3 _i18n/build_en.py --missing  -> listet nur Texte ohne Übersetzung
+  python3 _build/build_pages.py   (deutsche Unterseiten nach _src/)
+  python3 _i18n/build_site.py     (diese Datei)
+  python3 _i18n/build_site.py --missing   (nur Texte ohne Übersetzung listen)
 
-Übersetzungen stehen in _i18n/en.json  ("Deutscher Text": "English text").
-Fehlt ein Text, bricht das Skript ab und nennt ihn. Deutsch bleibt die Quelle:
-erst die deutschen Seiten ändern, dann hier neu bauen.
-Der Ordner _i18n wird von GitHub Pages nicht ausgeliefert.
+Übersetzungen: _i18n/en.json ("Deutscher Text": "English text"). Fehlt ein Text, bricht das
+Skript ab und nennt ihn. Ordner mit _ werden von GitHub Pages nicht ausgeliefert.
 """
 import html, json, os, re, sys
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC = os.path.join(ROOT, "_src")
 DICT = os.path.join(ROOT, "_i18n", "en.json")
-OUT = os.path.join(ROOT, "en")
 SITE = "https://threeapesgroup.com/"
-PAGES = sorted(f for f in os.listdir(ROOT) if f.endswith(".html"))
+PAGES = sorted(f for f in os.listdir(SRC) if f.endswith(".html"))
 
 TEXT_ATTRS = {"placeholder", "aria-label", "alt", "title", "data-cap", "data-example", "data-ph"}
 META_NAMES = {"description", "og:title", "og:description", "twitter:title", "twitter:description"}
@@ -117,17 +119,33 @@ def en_numbers(out):
     return "".join(p if p.startswith("<") else fix(p) for p in parts)
 
 
-def hreflang(name):
-    de = SITE + ("" if name == "index.html" else name)
-    en = SITE + "en/" + ("" if name == "index.html" else name)
-    return (f'<link rel="alternate" hreflang="de" href="{de}" />\n  '
+def head_links(name, lang):
+    slug = "" if name == "index.html" else name
+    en, de = SITE + slug, SITE + "de/" + slug
+    return (f'<link rel="canonical" href="{en if lang == "en" else de}" />\n  '
             f'<link rel="alternate" hreflang="en" href="{en}" />\n  '
-            f'<link rel="alternate" hreflang="x-default" href="{de}" />')
+            f'<link rel="alternate" hreflang="de" href="{de}" />\n  '
+            f'<link rel="alternate" hreflang="x-default" href="{en}" />')
+
+
+def prefix_assets(out):
+    out = re.sub(r'((?:src|href)=")(assets/)', r"\1../\2", out)
+    return out
+
+
+REDIRECT = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8" />
+<title>ThreeApesGroup</title>
+<link rel="canonical" href="{url}" />
+<meta name="robots" content="noindex" />
+<meta http-equiv="refresh" content="0; url=../{slug}" />
+<script>location.replace("../{slug}" + location.search + location.hash)</script>
+</head><body><a href="../{slug}">ThreeApesGroup</a></body></html>
+"""
 
 
 def main():
     d = json.load(open(DICT, encoding="utf-8"))
-    # Blöcke (Schlüssel mit HTML) zuerst als Ganzes ersetzen
     blocks = sorted(((k, v) for k, v in d.items() if "<" in k), key=lambda kv: -len(kv[0]))
     # Texte, die ein Block schon auf Englisch einsetzt, nicht noch einmal übersetzen
     for _, v in blocks:
@@ -137,41 +155,42 @@ def main():
                 d.setdefault(frag, frag)
     only_missing = "--missing" in sys.argv
     missing = {}
-    os.makedirs(OUT, exist_ok=True)
+    for sub in ("de", "en"):
+        os.makedirs(os.path.join(ROOT, sub), exist_ok=True)
     for name in PAGES:
-        path = os.path.join(ROOT, name)
-        src = open(path, encoding="utf-8").read()
-        # hreflang in die deutsche Seite (idempotent)
-        src2 = re.sub(r'\n  <link rel="alternate" hreflang="de"[^\n]*\n  <link rel="alternate" hreflang="en"[^\n]*\n  <link rel="alternate" hreflang="x-default"[^\n]*', "", src)
-        src2 = src2.replace("</title>", "</title>\n  " + hreflang(name), 1)
-        if src2 != src and not only_missing:
-            open(path, "w", encoding="utf-8").write(src2)
-        src = src2
+        src = open(os.path.join(SRC, name), encoding="utf-8").read()
+        src = src.replace("</title>", "</title>\n  " + "<!--TAGHEAD-->", 1)
+
+        # Deutsch -> de/
+        de = src.replace("<!--TAGHEAD-->", head_links(name, "de"))
+        de = prefix_assets(de)
+
+        # Englisch -> Hauptordner
         work = src
         for k, v in blocks:
             work = work.replace(k, v)
         miss = set()
         p = Tr(d, miss); p.feed(work); p.close()
-        out = "".join(p.out)
+        en = "".join(p.out)
         if miss:
             missing[name] = miss
-        out = out.replace('<html lang="de">', '<html lang="en">', 1)
-        out = en_numbers(out)
-        out = re.sub(r'((?:src|href)=")(assets/)', r"\1../\2", out)
-        out = re.sub(r'(href=")(favicon[^"]*|site\.webmanifest)', r"\1../\2", out)
-        out = out.replace('<link rel="canonical" href="' + SITE, '<link rel="canonical" href="' + SITE + "en/")
-        out = re.sub(r'(<meta property="og:url" content="' + re.escape(SITE) + r')', r"\1en/", out)
-        # Englisches Wörterbuch für die Skripte direkt nach config.js laden
-        out = re.sub(r'(<script src="\.\./assets/js/config\.js(\?v=\d+)?"></script>)',
-                     lambda m: m.group(1) + f'\n  <script src="../assets/js/en.js{m.group(2) or ""}"></script>', out)
+        en = en.replace('<html lang="de">', '<html lang="en">', 1)
+        en = en_numbers(en)
+        en = en.replace("<!--TAGHEAD-->", head_links(name, "en"))
+        en = re.sub(r'(<script src="assets/js/config\.js(\?v=\d+)?"></script>)',
+                    lambda m: m.group(1) + f'\n  <script src="assets/js/en.js{m.group(2) or ""}"></script>', en)
+
         if not only_missing:
-            open(os.path.join(OUT, name), "w", encoding="utf-8").write(out)
+            open(os.path.join(ROOT, "de", name), "w", encoding="utf-8").write(de)
+            open(os.path.join(ROOT, name), "w", encoding="utf-8").write(en)
+            slug = "" if name == "index.html" else name
+            open(os.path.join(ROOT, "en", name), "w", encoding="utf-8").write(REDIRECT.format(url=SITE + slug, slug=slug))
     if missing:
         allm = sorted(set().union(*missing.values()))
         print(f"{len(allm)} Texte ohne Übersetzung:")
         print(json.dumps({m: "" for m in allm}, ensure_ascii=False, indent=1))
         sys.exit(1 if not only_missing else 0)
-    print(f"ok: {len(PAGES)} Seiten nach en/ geschrieben")
+    print(f"ok: {len(PAGES)} Seiten – Englisch im Hauptordner, Deutsch unter de/, Weiterleitungen in en/")
 
 
 if __name__ == "__main__":

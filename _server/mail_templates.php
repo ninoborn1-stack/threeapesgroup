@@ -76,10 +76,10 @@ function tpl_confirm(array $d, string $site): array {
     $en = $d['lang'] === 'en';
     $L = $en ? [
         'subject' => 'Your inquiry has arrived · ' . $d['ref'],
-        'pre' => 'We\'ll get back to you within 48 hours. Usually sooner.',
+        'pre' => 'We\'ll get back to you within 24 hours, seven days a week.',
         'h1a' => 'Arrived.', 'h1b' => 'We\'re on it.',
         'hi' => 'Hi ' . $d['name'] . ',',
-        'intro' => 'thank you for your inquiry. It has reached us and is now with your point of contact. We\'ll get back to you within 48 hours, usually sooner.',
+        'intro' => 'thank you for your inquiry. It has reached us and is now with your point of contact. We\'ll get back to you within 24 hours, seven days a week, usually sooner.',
         'sum' => 'Your inquiry', 'ref' => 'Reference', 'type' => 'Type', 'budget' => 'Budget', 'areas' => 'Fields', 'company' => 'Company',
         'phone' => 'Phone', 'email' => 'Email', 'msg' => 'Your problem',
         'next' => 'What happens next',
@@ -87,13 +87,13 @@ function tpl_confirm(array $d, string $site): array {
         'disc' => 'What you wrote is read only by your point of contact. Need an NDA? Just reply to this email, we\'ll sign before the first conversation.',
         'reply' => 'Want to add something? Simply reply to this email.',
         'foot' => 'You received this email because you sent an inquiry via threeapesgroup.com. We don\'t use tracking.',
-        'site' => 'Website', 'legal' => 'Legal notice', 'privacy' => 'Privacy policy', 'base' => '/en',
+        'site' => 'Website', 'legal' => 'Legal notice', 'privacy' => 'Privacy policy', 'base' => '',
     ] : [
         'subject' => 'Deine Anfrage ist bei uns · ' . $d['ref'],
-        'pre' => 'Wir melden uns innerhalb von 48 Stunden. Meist schneller.',
+        'pre' => 'Wir melden uns innerhalb von 24 Stunden, sieben Tage die Woche.',
         'h1a' => 'Angekommen.', 'h1b' => 'Wir kümmern uns.',
         'hi' => 'Hallo ' . $d['name'] . ',',
-        'intro' => 'danke für deine Anfrage. Sie ist bei uns eingegangen und liegt jetzt bei deinem Ansprechpartner. Wir melden uns innerhalb von 48 Stunden, meist schneller.',
+        'intro' => 'danke für deine Anfrage. Sie ist bei uns eingegangen und liegt jetzt bei deinem Ansprechpartner. Wir melden uns innerhalb von 24 Stunden, sieben Tage die Woche, meist schneller.',
         'sum' => 'Deine Anfrage', 'ref' => 'Referenz', 'type' => 'Art', 'budget' => 'Budget', 'areas' => 'Bereiche', 'company' => 'Unternehmen',
         'phone' => 'Telefon', 'email' => 'E-Mail', 'msg' => 'Dein Problem',
         'next' => 'So geht es weiter',
@@ -101,7 +101,7 @@ function tpl_confirm(array $d, string $site): array {
         'disc' => 'Was du geschrieben hast, liest nur dein Ansprechpartner. Du brauchst eine NDA? Antworte einfach auf diese Mail, wir unterschreiben vor dem ersten Gespräch.',
         'reply' => 'Du willst noch etwas ergänzen? Antworte einfach auf diese Mail.',
         'foot' => 'Du bekommst diese Mail, weil du über threeapesgroup.com eine Anfrage gestellt hast. Wir verwenden kein Tracking.',
-        'site' => 'Website', 'legal' => 'Impressum', 'privacy' => 'Datenschutz', 'base' => '',
+        'site' => 'Website', 'legal' => 'Impressum', 'privacy' => 'Datenschutz', 'base' => '/de',
     ];
 
     $areas = implode(', ', array_map(static fn($a) => tr_value($a, $d['lang']), $d['areas']));

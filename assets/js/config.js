@@ -3,9 +3,9 @@
    Alles, was du regelmäßig anpassen willst, steht in dieser Datei.
    ================================================================= */
 
-// Sprache: deutsche Seiten im Hauptordner, englische unter /en/ (gebaut mit _i18n/build_en.py)
+// Sprache: Englisch im Hauptordner (Standard), Deutsch unter /de/ (gebaut mit _i18n/build_site.py)
 window.LANG = document.documentElement.lang === "en" ? "en" : "de";
-window.BASE = window.LANG === "en" ? "../" : "";
+window.BASE = window.LANG === "de" ? "../" : "";
 window.T = (s) => (window.LANG === "en" && window.EN_UI && window.EN_UI[s]) || s;
 
 window.CONFIG = {

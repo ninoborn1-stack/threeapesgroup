@@ -173,7 +173,7 @@
           <p>${T("Für uns gibt es keine Probleme, nur Wege. So würde dieser aussehen:")}</p>
         </div>
         <div class="asx__kpis">
-          <div class="asx__kpi"><span class="mono">${T("Zeit bis zur Lösung")}</span><b>${span(r.lo, r.hi)}</b><small>${r.urgent ? T("Erste Schritte sofort") : T("Antwort innerhalb von 48 h")}</small></div>
+          <div class="asx__kpi"><span class="mono">${T("Zeit bis zur Lösung")}</span><b>${span(r.lo, r.hi)}</b><small>${r.urgent ? T("Erste Schritte sofort") : T("Antwort innerhalb von 24 h")}</small></div>
           <div class="asx__kpi"><span class="mono">${T("Aufwand")}</span><b>${CX[r.cx]}</b><i class="asx__lvl" aria-hidden="true">${[1, 2, 3].map((i) => `<span class="${i <= r.cx ? "on" : ""}"></span>`).join("")}</i></div>
           <div class="asx__kpi"><span class="mono">${T("Im Netzwerk dran")}</span><b>${esc(c.h)} ${T("Köpfe")}</b><small>${r.roles.map(esc).join(" · ")}</small></div>
         </div>

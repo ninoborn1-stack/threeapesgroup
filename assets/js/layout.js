@@ -15,8 +15,8 @@
   // Sprachumschalter: gleiche Seite in der anderen Sprache
   const EN = window.LANG === "en";
   const tail = (here === "index.html" ? "" : here) + location.search + location.hash;
-  const deHref = (EN ? "../" : "") + tail || "./";
-  const enHref = (EN ? "" : "en/") + tail || "./";
+  const deHref = (EN ? "de/" : "") + tail || "./";
+  const enHref = (EN ? "" : "../") + tail || "./";
   const lang = (cls) => `<div class="lang ${cls} mono" role="group" aria-label="${T("Sprache")}">
       <a href="${deHref}" hreflang="de" lang="de"${EN ? "" : ' class="is-on" aria-current="true"'}>DE</a><span aria-hidden="true">/</span><a href="${enHref}" hreflang="en" lang="en"${EN ? ' class="is-on" aria-current="true"' : ""}>EN</a>
     </div>`;
@@ -52,13 +52,12 @@
       <div>
         <p class="mono footer__label">${T("Kontakt")}</p>
         <a href="mailto:${MAIL}" class="footer__mail">${MAIL}</a>
-        <p class="footer__note">${T("Wir antworten innerhalb von 48 Stunden. Was du schreibst, bleibt bei uns.")}</p>
+        <p class="footer__note">${T("Wir antworten innerhalb von 24 Stunden, sieben Tage die Woche. Was du schreibst, bleibt bei uns.")}</p>
       </div>
       <div class="footer__cols">
         <div><p class="mono footer__label">${T("Seiten")}</p>
           <a href="index.html" data-scramble>${T("Start")}</a>${PAGES.map(([h, l]) => `<a href="${h}" data-scramble>${l}</a>`).join("")}<a href="anfrage.html" data-scramble>${T("Anfrage")}</a>
         </div>
-        <div><p class="mono footer__label">Social</p><a href="#" data-scramble>Instagram</a><a href="#" data-scramble>LinkedIn</a><a href="#" data-scramble>TikTok</a></div>
         <div><p class="mono footer__label">${T("Rechtliches")}</p><a href="impressum.html" data-scramble>${T("Impressum")}</a><a href="datenschutz.html" data-scramble>${T("Datenschutz")}</a></div>
       </div>
     </div>

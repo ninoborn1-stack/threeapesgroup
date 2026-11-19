@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anfrage — ThreeApesGroup</title>
+  <meta name="description" content="Schildere dein Problem in ein paar Sätzen. Budget ab 2.500 €, Antwort innerhalb von 24 Stunden an sieben Tagen, Diskretion garantiert." />
+  <meta name="theme-color" content="#012B1D" />
+  <link rel="icon" href="assets/img/emblem.webp" />
+  <script>try{if(sessionStorage.getItem("tag-pt")==="1")document.documentElement.classList.add("pt-in")}catch(e){}</script>
+  <link rel="stylesheet" href="assets/css/fonts.css?v=36" />
+  <link rel="stylesheet" href="assets/css/style.css?v=36" />
+</head>
+<body>
+  <div class="pt" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div data-include="nav"></div>
+
+  <main id="top">
+    <section class="phero phero--short">
+      <div class="phero__bg" aria-hidden="true">ASK</div>
+      <div class="phero__main">
+        <p class="label">Anfrage</p>
+        <h1 class="phero__title">
+          <span class="line"><span class="line__inner">Erzähl uns</span></span>
+          <span class="line"><span class="line__inner"><em class="serif">nicht alles</em>.</span></span>
+        </h1>
+        <p class="phero__lead">Nur das Problem. Wir veröffentlichen keine Preise, weil jedes Problem anders ist. Wähl deinen Budgetrahmen und wir melden uns innerhalb von 24 Stunden, sieben Tage die Woche.</p>
+        
+        <div class="phero__facts mono"><span>Antwort in 24 h, 7 Tage</span><span>NDA auf Wunsch</span><span>Budget ab 2.500 €</span></div>
+      </div>
+      <div class="phero__aside" aria-hidden="true">
+        <svg class="phero__art" viewBox="0 0 400 300">
+          <path d="M200 20 L370 280 L30 280 Z" />
+          <path d="M200 80 L320 260 L80 260 Z" class="pa-steel" />
+          <path d="M140 200 L185 240 L265 150" class="pa-peach" style="stroke-width:5" />
+        </svg>
+      </div>
+    </section>
+
+    <section class="inquiry" id="anfrage" style="padding-top:100px">
+      <div class="probe probe--left" style="max-width:820px;margin-bottom:80px">
+        <form data-probe="inquiry" autocomplete="off">
+          <label class="mono" for="inqProbe">Schnellstart: Ein Satz, wir füllen den Rest vor.</label>
+          <div class="probe__row">
+            <input id="inqProbe" type="text" placeholder="z. B. „Wir suchen einen Sponsor für unsere Convention“" maxlength="140" />
+            <button type="submit" class="btn btn--jungle">Übernehmen</button>
+          </div>
+          <div class="probe__result" aria-live="polite"></div>
+        </form>
+      </div>
+      <div class="inquiry__layout">
+        <form class="form" id="inquiryForm" novalidate>
+        <fieldset class="form__block">
+          <legend class="mono"><span>01</span> Art der Anfrage</legend>
+          <div class="chips" id="typeChips">
+            <label class="chip"><input type="radio" name="type" value="Projekt / Problem" checked /><span>Projekt / Problem</span></label>
+            <label class="chip"><input type="radio" name="type" value="Beratung" /><span>Beratung</span></label>
+            <label class="chip"><input type="radio" name="type" value="Kunst &amp; Kreativ" /><span>Kunst &amp; Kreativ</span></label>
+            <label class="chip"><input type="radio" name="type" value="Netzwerk beitreten" /><span>Netzwerk beitreten</span></label>
+            <label class="chip chip--locked" data-locked><input type="radio" name="type" value="Partnerschaft" disabled /><span><svg class="lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="8" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>Partnerschaft</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form__block">
+          <legend class="mono"><span>02</span> Budgetrahmen</legend>
+          <div class="chips chips--budget" id="budgetChips">
+            <label class="chip chip--locked" data-locked><input type="radio" name="budget" value="unter 2.500 €" disabled /><span><svg class="lock" viewBox="0 0 16 16"><rect x="3" y="7" width="10" height="8" rx="1.5"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/></svg>&lt; 2.500 €</span></label>
+            <label class="chip"><input type="radio" name="budget" value="2.500 – 5.000 €" /><span>2.500 – 5.000 €</span></label>
+            <label class="chip"><input type="radio" name="budget" value="5.000 – 10.000 €" /><span>5.000 – 10.000 €</span></label>
+            <label class="chip"><input type="radio" name="budget" value="10.000 – 25.000 €" /><span>10.000 – 25.000 €</span></label>
+            <label class="chip"><input type="radio" name="budget" value="25.000 – 50.000 €" /><span>25.000 – 50.000 €</span></label>
+            <label class="chip"><input type="radio" name="budget" value="50.000 € +" /><span>50.000 € +</span></label>
+          </div>
+          <p class="form__hint mono">Budgets beginnen bei 2.500 €. Kleinere Budgets und Partnerschaften gibt es nur mit Sondercode.</p>
+          <div class="code" id="codeBox">
+            <button type="button" class="code__toggle mono" id="codeToggle" aria-expanded="false">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14a4 4 0 1 1 3.9-5H22v4h-2v3h-3v-3h-6.1A4 4 0 0 1 7 14z"/></svg>
+              Ich habe einen Sondercode
+            </button>
+            <div class="code__field" id="codeField">
+              <div class="code__row">
+                <input type="text" id="codeInput" placeholder="CODE" maxlength="24" autocomplete="off" spellcheck="false" />
+                <button type="button" class="btn btn--jungle btn--sm" id="codeBtn">Prüfen</button>
+              </div>
+              <p class="code__msg mono" id="codeMsg" aria-live="polite"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form__block">
+          <legend class="mono"><span>03</span> Bereich <i>(optional, Mehrfachauswahl)</i></legend>
+          <div class="chips chips--multi">
+            <label class="chip"><input type="checkbox" name="area" value="Strategie" /><span>Strategie</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Organisation" /><span>Organisation</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="IT" /><span>IT</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="KI" /><span>KI</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Web &amp; Software" /><span>Web &amp; Software</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Coaching" /><span>Coaching</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Kunst" /><span>Kunst</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Foto &amp; Video" /><span>Foto &amp; Video</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Künstler &amp; Labels" /><span>Künstler &amp; Labels</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Sponsoring" /><span>Sponsoring</span></label>
+            <label class="chip"><input type="checkbox" name="area" value="Weiß nicht" /><span>Weiß ich nicht</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="form__block form__block--grid">
+          <legend class="mono"><span>04</span> Kontakt</legend>
+          <label class="field"><span class="mono">Name *</span><input type="text" name="name" required autocomplete="name" /></label>
+          <label class="field"><span class="mono">E-Mail *</span><input type="email" name="email" required autocomplete="email" /></label>
+          <label class="field"><span class="mono">Unternehmen</span><input type="text" name="company" autocomplete="organization" /></label>
+          <label class="field"><span class="mono">Telefon</span><input type="tel" name="phone" autocomplete="tel" /></label>
+          <label class="field field--full"><span class="mono">Das Problem in ein paar Sätzen *</span><textarea name="message" id="messageField" rows="5" required></textarea></label>
+          <div class="hp-field" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+          <label class="consent"><input type="checkbox" name="consent" required /><span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Anfrage gespeichert werden. Mehr dazu in der <a href="datenschutz.html">Datenschutzerklärung</a>. *</span></label>
+        </fieldset>
+
+        <div class="form__submit">
+          <button type="submit" class="btn btn--peach btn--xl">Anfrage senden <span class="btn__arrow">→</span></button>
+          <p class="form__error mono" id="formError" aria-live="polite"></p>
+        </div>
+
+        <div class="form__success" id="formSuccess" aria-live="polite">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><path class="fs-tri" d="M60 8 L112 104 L8 104 Z" /><path class="fs-check" d="M38 66 L54 80 L84 46" /></svg>
+          <h3>Angekommen.</h3>
+          <p>Wir haben dein Problem und melden uns innerhalb von 24 Stunden. Auch am Wochenende.</p>
+        </div>
+      </form>
+        <aside class="inquiry__side">
+          <div><svg data-icon="lock"></svg><h4>Vertraulich</h4><p>Was du hier schreibst, liest nur dein Ansprechpartner. Niemand sonst.</p></div>
+          <div><svg data-icon="doc"></svg><h4>NDA auf Wunsch</h4><p>Schreib es dazu. Wir unterschreiben vor dem ersten Gespräch.</p></div>
+          <div><svg data-icon="talk"></svg><h4>24 Stunden</h4><p>So lange dauert es bis zur ersten Antwort, sieben Tage die Woche. Meistens kürzer.</p></div>
+          <div><svg data-icon="eyeoff"></svg><h4>Nur das Nötigste</h4><p>Lass Namen weg, wenn du willst. Wir brauchen sie am Anfang nicht.</p></div>
+        </aside>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="footer"></div>
+
+  <script src="assets/js/config.js?v=36"></script>
+  <script src="assets/js/layout.js?v=36"></script>
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="assets/js/network.js?v=36"></script>
+  <script src="assets/js/assist.js?v=36"></script>
+  <script src="assets/js/main.js?v=36"></script>
+</body>
+</html>

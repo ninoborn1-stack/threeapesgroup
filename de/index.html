@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ThreeApesGroup — Für jedes Problem kennen wir jemanden.</title>
+  <link rel="canonical" href="https://threeapesgroup.com/de/" />
+  <link rel="alternate" hreflang="en" href="https://threeapesgroup.com/" />
+  <link rel="alternate" hreflang="de" href="https://threeapesgroup.com/de/" />
+  <link rel="alternate" hreflang="x-default" href="https://threeapesgroup.com/" />
+  <meta name="description" content="ThreeApesGroup, Berlin: diskrete Problemlösung über ein großes Netzwerk. Strategie, Organisation, IT und KI, Web und Software, Kunst, Kreativwirtschaft und Sponsoring." />
+  <meta name="theme-color" content="#012B1D" />
+  <link rel="icon" href="../assets/img/emblem.webp" />
+  <script>try{if(sessionStorage.getItem("tag-pt")==="1")document.documentElement.classList.add("pt-in")}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/fonts.css?v=36" />
+  <link rel="stylesheet" href="../assets/css/style.css?v=36" />
+</head>
+<body class="is-loading">
+  <div class="pt" aria-hidden="true"><i></i><i></i><i></i></div>
+
+  <!-- LOADER — das Auge schließt sich, drei Panels geben die Seite frei -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__panels"><span class="loader__panel"></span><span class="loader__panel"></span><span class="loader__panel"></span></div>
+    <canvas class="loader__dots"></canvas>
+    <div class="loader__stage">
+      <p class="loader__line"><span>Keine Probleme. Nur Wege.</span></p>
+    </div>
+    <div class="loader__meta">
+      <span class="mono">ThreeApesGroup</span>
+      <span class="loader__count mono"><span id="loaderCount">000</span>%</span>
+    </div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div data-include="nav"></div>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <svg class="hero__grid" aria-hidden="true" viewBox="0 0 1440 900" preserveAspectRatio="none">
+        <g class="hg-lines">
+          <line x1="0" y1="180" x2="1440" y2="180" /><line x1="0" y1="760" x2="1440" y2="760" />
+          <line x1="240" y1="0" x2="240" y2="900" /><line x1="1200" y1="0" x2="1200" y2="900" />
+        </g>
+      </svg>
+
+      <div class="hero__emblem" aria-hidden="true">
+        <svg class="hero__tri" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path class="hg-tri" d="M50 0 L100 92 L0 92 Z" /></svg>
+        <div class="hero__ringwrap">
+          <svg class="hero__ring" viewBox="0 0 400 400">
+            <defs><path id="ringPath" d="M200,200 m-176,0 a176,176 0 1,1 352,0 a176,176 0 1,1 -352,0" /></defs>
+            <text><textPath href="#ringPath" textLength="1100" lengthAdjust="spacing">ThreeApesGroup ✦ ThreeApesGroup ✦ ThreeApesGroup ✦ ThreeApesGroup ✦ ThreeApesGroup ✦ </textPath></text>
+          </svg>
+        </div>
+        <div class="hero__apes">
+          <img class="hero__logo" src="../assets/img/emblem.webp" alt="" />
+        </div>
+      </div>
+
+      <div class="hero__content">
+        <p class="kicker mono"><span class="dot"></span> <span data-k>Diskrete Problemlösung</span></p>
+        <h1 class="hero__title">
+          <span class="line"><span class="line__inner">Für jedes Problem</span></span>
+          <span class="line"><span class="line__inner serif">kennen wir jemanden<em>.</em></span></span>
+        </h1>
+        <p class="hero__lead">Schnell, leise und in jedem Bereich. Du nennst uns das Problem, <b>unser Netzwerk löst es.</b></p>
+        <form class="hprobe" data-probe="jump" autocomplete="off">
+          <label class="hprobe__label mono" for="heroProbe">Was sollen wir lösen?</label>
+          <div class="hprobe__row">
+            <svg class="hprobe__ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" /></svg>
+            <input id="heroProbe" type="text" placeholder="Dein Problem in einem Satz" maxlength="140" />
+            <button type="submit" class="btn btn--peach">Lösen <span class="btn__arrow">→</span></button>
+          </div>
+        </form>
+        <div class="hprobe__tags">
+          <button type="button" data-example="Unsere Website bringt keine Kunden">Website</button>
+          <button type="button" data-example="Wir suchen einen Sponsor für unsere Convention">Sponsor</button>
+          <button type="button" data-example="Wir wollen KI im Support einsetzen">KI im Support</button>
+          <button type="button" data-example="Ein Werk soll diskret verkauft werden">Kunst verkaufen</button>
+        </div>
+        <ul class="hero__facts mono" aria-label="Kurz und knapp">
+          <li><b>150+</b> Köpfe im Netzwerk</li>
+          <li><b>15+</b> Branchen</li>
+          <li><b>24 h</b> Antwort, 7 Tage</li>
+        </ul>
+      </div>
+      <a href="#manifest" class="hero__scroll mono" aria-label="Weiter scrollen">
+        <svg viewBox="0 0 20 80"><line x1="10" y1="0" x2="10" y2="80" /></svg>
+        Scroll
+      </a>
+    </section>
+
+
+    <!-- MANIFEST — vier Sätze, ein Schutz-Dreieck -->
+    <section class="manifest manifest--calm" id="manifest">
+      <div class="manifest__pin">
+        <div class="manifest__grid">
+          <div class="manifest__text">
+            <p class="label">[01] — Manifest</p>
+            <ol class="mlist">
+              <li class="mitem is-on" data-reveal><span class="mitem__n mono">01</span><div><h3>Keine Probleme. Nur <em class="serif">Wege</em>.</h3></div></li>
+              <li class="mitem is-on" data-reveal><span class="mitem__n mono">02</span><div><h3>Absolute <em class="serif">Diskretion</em>.</h3></div></li>
+              <li class="mitem is-on" data-reveal><span class="mitem__n mono">03</span><div><h3>Geschützt durch die <em class="serif">ThreeApes</em>.</h3></div></li>
+              <li class="mitem is-on" data-reveal><span class="mitem__n mono">04</span><div><h3>Unser Netzwerk hält <em class="serif">nichts</em> auf.</h3></div></li>
+            </ol>
+          </div>
+          <div class="manifest__visual">
+            <svg viewBox="40 20 720 610" id="vaultSvg" aria-hidden="true">
+              <defs>
+                <radialGradient id="vtGlow" cx="50%" cy="66%" r="58%"><stop offset="0%" stop-color="#01B36C" stop-opacity=".24" /><stop offset="100%" stop-color="#01B36C" stop-opacity="0" /></radialGradient>
+              </defs>
+              <path class="vt-ghost" d="M400 28 L80 568 L720 568 Z" />
+              <g class="vt-probes"></g>
+              <path class="vt-fill" d="M400 70 L128 540 L672 540 Z" fill="url(#vtGlow)" />
+              <g class="vt-edges"></g>
+              <g class="vt-halos"><circle class="vt-halo" cx="400" cy="383" r="16" /><circle class="vt-halo" cx="400" cy="383" r="16" /></g>
+              <circle class="vt-core" cx="400" cy="383" r="13" />
+              <text class="vt-label" x="400" y="440" text-anchor="middle">DEIN PROBLEM</text>
+              <g class="vt-node"><circle class="vt-node__ring" cx="400" cy="70" r="17" /><circle class="vt-node__in" cx="400" cy="70" r="7" /></g><g class="vt-node"><circle class="vt-node__ring" cx="128" cy="540" r="17" /><circle class="vt-node__in" cx="128" cy="540" r="7" /></g><g class="vt-node"><circle class="vt-node__ring" cx="672" cy="540" r="17" /><circle class="vt-node__in" cx="672" cy="540" r="7" /></g>
+              <text class="vt-corner" x="430" y="77">SIEHT NICHTS</text><text class="vt-corner" x="128" y="586" text-anchor="middle">HÖRT NICHTS</text><text class="vt-corner" x="672" y="586" text-anchor="middle">SAGT NICHTS</text>
+              <text class="vt-cap" x="400" y="618" text-anchor="middle">NICHTS REIN. NICHTS RAUS.</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01.1 — Wir sind alle -->
+    <section class="principles">
+      <div class="crowd">
+        <div class="crowd__text">
+          <p class="label">[01.1] — Wer wir sind</p>
+          <h2 class="h2 crowd__title">Wir sind <em class="serif">alle</em>.</h2>
+          <p class="lead">Von außen siehst du drei Affen. Darin steckt jeder, den es für die Lösung braucht. Jede Disziplin, jede Branche, jede Ebene. Wer mit uns spricht, spricht mit allen.</p>
+        </div>
+        <div class="crowd__art">
+          <svg id="crowdSvg" data-dots="mid" viewBox="0 0 600 620" aria-hidden="true"></svg>
+        </div>
+      </div>
+      <div class="vows">
+        <article class="vow">
+          <svg class="pcard__icon" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="pi-stroke" d="M10 60 Q60 10 110 60 Q60 110 10 60 Z" />
+            <circle class="pi-fill pi-look" cx="60" cy="60" r="12" />
+            <path class="pi-stroke pi-slash" d="M20 100 L100 20" />
+          </svg>
+          <div><span class="mono">01</span><h3>Nichts sehen.</h3><p>Keine Vorgeschichte nötig.</p></div>
+        </article>
+        <article class="vow">
+          <svg class="pcard__icon" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="pi-stroke pi-wave" d="M40 30 Q20 60 40 90" /><path class="pi-stroke pi-wave pi-wave--2" d="M28 20 Q0 60 28 100" />
+            <path class="pi-stroke pi-wave" d="M80 30 Q100 60 80 90" /><path class="pi-stroke pi-wave pi-wave--2" d="M92 20 Q120 60 92 100" />
+            <rect class="pi-fill" x="52" y="48" width="16" height="24" rx="3" />
+          </svg>
+          <div><span class="mono">02</span><h3>Nichts hören.</h3><p>Was du sagst, bleibt hier.</p></div>
+        </article>
+        <article class="vow">
+          <svg class="pcard__icon" viewBox="0 0 120 120" aria-hidden="true">
+            <path class="pi-stroke" d="M20 70 Q60 100 100 70" />
+            <path class="pi-stroke pi-lip" d="M30 50 L90 50" />
+            <path class="pi-stroke pi-check" d="M38 30 L54 44 L84 14" />
+          </svg>
+          <div><span class="mono">03</span><h3>Nichts sagen.</h3><p>Keine Namen. Nie.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Protokoll — Diskretion -->
+    <section class="protocol">
+      <div class="protocol__text">
+        <p class="label">[01.2] — Diskretion</p>
+        <h2 class="h2">Was wir wissen <em class="serif">müssen</em>: fast nichts.</h2>
+        <p class="lead">Selbst bei uns ist vieles geheim. Wer an deinem Problem arbeitet, bekommt genau das, was er dafür braucht. Mehr nicht.</p>
+        <div style="margin-top:34px"><a href="manifest.html" class="btn btn--ghost">Das ganze Manifest <span class="btn__arrow">→</span></a></div>
+      </div>
+      <div class="protocol__doc">
+        <div class="protocol__top mono"><span>Akte Nr. 0427</span><span>Vertraulich</span></div>
+        <div class="dossier">
+          <div><span class="mono">Auftraggeber</span><b><span class="redact">Name bleibt intern</span></b></div>
+          <div><span class="mono">Anliegen</span><b><span class="redact">Support kommt nicht hinterher</span></b></div>
+          <div><span class="mono">Netzwerk</span><b>3 Köpfe · <span class="redact">Namen intern</span></b></div>
+          <div><span class="mono">Status</span><b class="dossier__ok">Gelöst</b></div>
+        </div>
+        <h3>Unser Protokoll</h3>
+        <ol>
+          <li><span>Wir fragen nur, was am Ende stehen soll.</span></li>
+          <li><span>NDA auf Wunsch, vor dem ersten Gespräch.</span></li>
+          <li><span>Jeder im Netzwerk sieht nur seinen Teil.</span></li>
+          <li><span>Danach löschen wir, was wir nicht mehr brauchen.</span></li>
+        </ol>
+        <div class="protocol__foot mono"><span>Was dich betrifft, wird geschwärzt.</span><span>TAG</span></div>
+        <span class="protocol__stamp">Geheim</span>
+      </div>
+    </section>
+
+    <!-- NETZWERK -->
+    <section class="network" id="netzwerk">
+      <div class="network__head">
+        <p class="label">[02] — Das Netzwerk</p>
+        <h2 class="h2">Ein Kontakt. <em class="serif">Hunderte</em> Lösungen.</h2>
+      </div>
+
+      <div class="network__stage">
+        <svg class="network__svg" id="networkSvg" viewBox="0 0 1200 780" aria-label="Netzwerk-Visualisierung"></svg>
+      </div>
+      <div class="probe">
+        <form id="probe" data-probe="network" autocomplete="off">
+          <label class="mono" for="probeInput">Teste das Netzwerk. Ein Satz reicht.</label>
+          <div class="probe__row">
+            <input id="probeInput" type="text" placeholder="z. B. „Wir brauchen eine KI-Lösung für unseren Support“" maxlength="140" />
+            <button type="submit" class="btn btn--jungle">Senden</button>
+          </div>
+          <div class="probe__result" id="probeResult" aria-live="polite"></div>
+        </form>
+        <div class="probe__examples">
+          <button type="button" data-example="Unser Online-Shop verkauft nichts">Shop verkauft nichts</button>
+          <button type="button" data-example="Wir suchen einen Sponsor für unsere Convention">Sponsor für Convention</button>
+          <button type="button" data-example="Ein Rapper braucht ein Label und Musikvideos">Rapper braucht Label</button>
+          <button type="button" data-example="Server gehackt, Daten weg">Server gehackt</button>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><p class="mono">Köpfe im Netzwerk <!-- PLATZHALTER --></p><div class="stat__val"><span class="stat__num" data-count="150">0</span><span class="stat__plus">+</span></div><div class="stat__viz" data-viz="dots" data-n="150"></div></div>
+        <div class="stat"><p class="mono">Gelöst <!-- PLATZHALTER --></p><div class="stat__val"><span class="stat__num" data-count="40">0</span><span class="stat__plus">+</span></div><div class="stat__viz" data-viz="check" data-n="40"></div></div>
+        <div class="stat"><p class="mono">Branchen <!-- PLATZHALTER --></p><div class="stat__val"><span class="stat__num" data-count="15">0</span><span class="stat__plus">+</span></div><div class="stat__viz" data-viz="sq" data-n="15"></div></div>
+      </div>
+      <div class="coop">
+        <div class="coop__text">
+          <p class="label">[02.1] — Bis in die Verwaltung</p>
+          <h3 class="h2">Kontakt bis in die <em class="serif">Verwaltungsebene</em>.</h3>
+        </div>
+        <div class="coop__cards">
+          <article class="coop__card"><div class="coop__top"><span class="mono">Ebene 01</span><svg data-icon="organisation"></svg></div><b class="coop__name">Verwaltung</b><p>Der kurze Weg zu Ämtern und Behörden.</p></article>
+          <article class="coop__card"><div class="coop__top"><span class="mono">Ebene 02</span><svg data-icon="sponsoring"></svg></div><b class="coop__name">Förderung</b><p>Programme, Anträge und die Menschen, die sie kennen.</p></article>
+          <article class="coop__card"><div class="coop__top"><span class="mono">Ebene 03</span><svg data-icon="shield"></svg></div><b class="coop__name">Öffentliche Hand</b><p>Projekte mit öffentlichen Auftraggebern.</p></article>
+        </div>
+        <!-- PLATZHALTER: Partnerunternehmen prüfen -->
+        <p class="coop__via mono"><span>Wir arbeiten zusammen mit</span><b>cnode</b><i>✦</i><b>Zulano Gruppe</b><em>pre-incubated</em></p>
+      </div>
+    </section>
+
+
+    <!-- LEISTUNGEN -->
+    <section class="section section--forest" id="leistungen">
+      <div class="section__head section__head--split">
+        <p class="label">[03] — Leistungen</p>
+        <h2 class="h2 reveal-words">Zwei Welten. Ein Netzwerk.</h2>
+      </div>
+
+      <div class="svcx" data-svcx>
+        <div class="svcx__list" role="tablist" aria-label="Leistungen">
+          <button type="button" class="svcx__btn is-on" data-i="0"><span class="mono">01</span><b>Strategie</b><em class="mono">Beratung</em></button><button type="button" class="svcx__btn" data-i="1"><span class="mono">02</span><b>Organisation</b><em class="mono">Beratung</em></button><button type="button" class="svcx__btn" data-i="2"><span class="mono">03</span><b>IT-Beratung</b><em class="mono">Beratung</em></button><button type="button" class="svcx__btn" data-i="3"><span class="mono">04</span><b>KI-Beratung</b><em class="mono">Beratung</em></button><button type="button" class="svcx__btn" data-i="4"><span class="mono">05</span><b>Web &amp; Software</b><em class="mono">Beratung</em></button><button type="button" class="svcx__btn" data-i="5"><span class="mono">06</span><b>Coaching</b><em class="mono">Beratung</em></button><button type="button" class="svcx__btn" data-i="6"><span class="mono">07</span><b>Kunsthandel</b><em class="mono">Kreativ</em></button><button type="button" class="svcx__btn" data-i="7"><span class="mono">08</span><b>Foto &amp; Video</b><em class="mono">Kreativ</em></button><button type="button" class="svcx__btn" data-i="8"><span class="mono">09</span><b>Künstler &amp; Labels</b><em class="mono">Kreativ</em></button><button type="button" class="svcx__btn" data-i="9"><span class="mono">10</span><b>Vermittlung</b><em class="mono">Kreativ</em></button><button type="button" class="svcx__btn" data-i="10"><span class="mono">11</span><b>Sponsoring</b><em class="mono">Kreativ</em></button>
+          <a href="anfrage.html" class="svcx__more mono">Nicht dabei? Wir kennen jemanden. →</a>
+        </div>
+        <div class="svcx__stage">
+          <article class="svcx__item is-on">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=75" alt="Platzhalter: Strategie" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="strategie"></svg><span class="mono">01 · Beratung</span><h3>Strategie</h3><p>Wohin, wie schnell, mit wem. Wir finden die Richtung und die Leute, die sie mit dir gehen.</p><a href="leistungen.html#strategie" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&q=75" alt="Platzhalter: Organisation" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="organisation"></svg><span class="mono">02 · Beratung</span><h3>Organisation</h3><p>Struktur, die nicht im Weg steht. Prozesse, Rollen und Teams, die von allein laufen.</p><a href="leistungen.html#organisation" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=75" alt="Platzhalter: IT-Beratung" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="it"></svg><span class="mono">03 · Beratung</span><h3>IT-Beratung</h3><p>Systeme, die laufen. Und sicher sind. Ohne Fachchinesisch und ohne Abhängigkeit.</p><a href="leistungen.html#it" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200&q=75" alt="Platzhalter: KI-Beratung" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="ki"></svg><span class="mono">04 · Beratung</span><h3>KI-Beratung</h3><p>Automatisieren, was nervt. KI dort, wo sie wirklich Zeit spart.</p><a href="leistungen.html#ki" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=75" alt="Platzhalter: Web &amp; Software" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="web"></svg><span class="mono">05 · Beratung</span><h3>Web &amp; Software</h3><p>Seiten, Apps und Tools, die etwas tun. Gebaut von Leuten, die das jeden Tag machen.</p><a href="leistungen.html#web" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?w=1200&q=75" alt="Platzhalter: Coaching" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="coaching"></svg><span class="mono">06 · Beratung</span><h3>Coaching</h3><p>Teams und Menschen, die weiterkommen. Ohne Folienschlacht.</p><a href="leistungen.html#coaching" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200&q=75" alt="Platzhalter: Kunsthandel" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="kunst"></svg><span class="mono">07 · Kreativ</span><h3>Kunsthandel</h3><p>Ankauf und Verkauf. Diskret. Ohne Auktion und ohne Presse.</p><a href="leistungen.html#kunst" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1200&q=75" alt="Platzhalter: Foto &amp; Video" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="foto-video"></svg><span class="mono">08 · Kreativ</span><h3>Foto &amp; Video</h3><p>Bilder, die etwas auslösen. Vom Shooting bis zur ganzen Kampagne.</p><a href="leistungen.html#foto-video" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=75" alt="Platzhalter: Künstler &amp; Labels" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="labels"></svg><span class="mono">09 · Kreativ</span><h3>Künstler &amp; Labels</h3><p>Vom Demo bis zum Release. Mit den richtigen Leuten an der Seite.</p><a href="leistungen.html#labels" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1200&q=75" alt="Platzhalter: Vermittlung" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="vermittlung"></svg><span class="mono">10 · Kreativ</span><h3>Vermittlung</h3><p>Die richtigen Künstler am richtigen Ort. Für Events, Marken und Kooperationen.</p><a href="leistungen.html#vermittlung" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <article class="svcx__item">
+            <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?w=1200&q=75" alt="Platzhalter: Sponsoring" loading="lazy" />
+            <div class="svcx__body"><svg data-icon="sponsoring"></svg><span class="mono">11 · Kreativ</span><h3>Sponsoring</h3><p>Marken und Künstler, die zusammenpassen. Vom Matching bis zur Aktivierung.</p><a href="leistungen.html#sponsoring" class="btn btn--ghost">Mehr dazu <span class="btn__arrow">→</span></a></div>
+          </article>
+          <div class="svcx__bar"><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AKTEN (Projekte) -->
+    <section class="section section--deep" id="projekte">
+      <div class="section__head section__head--split">
+        <p class="label">[04] — Gelöste Akten</p>
+        <h2 class="h2">Was wir <em class="serif">schon</em> gelöst haben.</h2>
+      </div>
+      <div class="files">
+        <!-- PLATZHALTER-Akten: Bild, Kategorie, Problem, Ergebnis anpassen -->
+        <article class="file">
+          <div class="file__top mono"><b>Akte 001</b><span>Software · KI</span><span>2026</span></div>
+          <div class="file__img"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&q=75" alt="Platzhalter Projektbild" loading="lazy" /><span class="file__stamp">Gelöst</span></div>
+          <div class="file__body">
+            <h3>Support im Dauer&shy;feuer</h3>
+            <div class="file__row"><span>Rahmen</span><span>Industrie · Mittelstand</span></div>
+            <div class="file__row"><span>Umfang</span><span>8 Wochen · 3 Köpfe</span></div>
+            <div class="file__row"><span>Ausgangslage</span><span>Der Support kommt nicht mehr hinterher.</span></div>
+            <div class="file__kpi"><b>−60%</b><span>Antwortzeit</span></div>
+          </div>
+          <a href="projekt.html" class="file__link" aria-label="Akte 001 öffnen"></a>
+        </article>
+        <article class="file">
+          <div class="file__top mono"><b>Akte 002</b><span>Sponsoring · Convention</span><span>2026</span></div>
+          <div class="file__img"><img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=900&q=75" alt="Platzhalter Projektbild" loading="lazy" /><span class="file__stamp">Gelöst</span></div>
+          <div class="file__body">
+            <h3>Convention ohne Geldgeber</h3>
+            <div class="file__row"><span>Rahmen</span><span>Kultur · Veranstaltung</span></div>
+            <div class="file__row"><span>Umfang</span><span>6 Wochen · 2 Köpfe</span></div>
+            <div class="file__row"><span>Ausgangslage</span><span>Kurz vor dem Termin fehlt der Hauptsponsor.</span></div>
+            <div class="file__kpi"><b>6</b><span>Wochen bis zum Deal</span></div>
+          </div>
+          <a href="projekt.html" class="file__link" aria-label="Akte 002 öffnen"></a>
+        </article>
+        <article class="file">
+          <div class="file__top mono"><b>Akte 003</b><span>Kunst · Handel</span><span>2025</span></div>
+          <div class="file__img"><img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=900&q=75" alt="Platzhalter Projektbild" loading="lazy" /><span class="file__stamp">Gelöst</span></div>
+          <div class="file__body">
+            <h3>Eine Sammlung, kein Aufsehen</h3>
+            <div class="file__row"><span>Rahmen</span><span>Privat · Sammlung</span></div>
+            <div class="file__row"><span>Umfang</span><span>4 Monate · 2 Köpfe</span></div>
+            <div class="file__row"><span>Ausgangslage</span><span>Werke sollen verkauft werden. Leise.</span></div>
+            <div class="file__kpi"><b>7</b><span>Werke platziert</span></div>
+          </div>
+          <a href="projekt.html" class="file__link" aria-label="Akte 003 öffnen"></a>
+        </article>
+      </div>
+      <div class="files__foot">
+        <p>Drei von sechs Akten, die wir zeigen. Keine Namen, nur der Rahmen und das Ergebnis.</p>
+        <a href="projekte.html" class="btn btn--ghost">Alle sechs Akten <span class="btn__arrow">→</span></a>
+      </div>
+    </section>
+
+    <!-- PARTNER & SPONSORING -->
+    <section class="partners" id="partner">
+      <div class="partners__head">
+        <div>
+          <p class="label">[05] — Partner &amp; Sponsoring</p>
+          <h2 class="h2">Ein enger Partner. <em class="serif">Und Sponsoren.</em></h2>
+        </div>
+        <p>Statt vieler Namen zeigen wir einen. In der Kunst arbeiten wir sehr eng mit dem Bunkerwest zusammen.</p>
+      </div>
+      <div class="home-base" data-reveal>
+        <p class="home-base__name" aria-label="Bunkerwest"><span>BUNKER</span><span class="home-base__out">WEST</span></p>
+        <div class="home-base__meta">
+          <div><span class="mono">Ort</span><b>Hohenzollerndamm, Berlin</b></div>
+          <div><span class="mono">Was</span><b>Kunst, Ausstellungen, Events</b></div>
+          <div><span class="mono">Zusammenarbeit</span><b>Sehr eng</b></div>
+        </div>
+      </div>
+      <p class="logos__label mono" style="margin:90px 0 34px">Von Sponsoring bis Kulturförderung · Namen bleiben unter uns</p>
+      <ol class="range">
+        <li data-reveal><span class="range__n mono">01</span><h3>Sponsoring</h3><p>Marken für Künstler, Ausstellungen und Projekte.</p></li>
+        <li data-reveal><span class="range__n mono">02</span><h3>Firmen</h3><p>Partnerschaften zwischen Unternehmen und Kultur.</p></li>
+        <li data-reveal><span class="range__n mono">03</span><h3>Events</h3><p>Haupt- und Co-Sponsoren, Aktivierung vor Ort.</p></li>
+        <li data-reveal><span class="range__n mono">04</span><h3>Kulturförderung</h3><p>Stiftungen, Förderprogramme, öffentliche Hand.</p></li>
+        <li data-reveal><span class="range__n mono">05</span><h3>Community</h3><p>Wir selbst machen nur kleine, exklusive Community-Events. Unser Netzwerk trifft sich in Berlin im Bunkerwest, der das ganze Jahr über viele eigene Events veranstaltet.</p></li>
+      </ol>
+      <div class="partners__cta"><a href="partner.html" class="btn btn--dark">Partner &amp; Sponsoring <span class="btn__arrow">→</span></a></div>
+    </section>
+
+    <!-- PROZESS — gestapelte Karten -->
+    <section class="process">
+      <div class="process__head">
+        <div>
+          <p class="label">[06] — So läuft's</p>
+          <h2 class="h2 reveal-words">Vier Schritte. Kein Zirkus.</h2>
+        </div>
+      </div>
+      <div class="stack">
+        <article class="stack__card" style="--i:0">
+          <span class="stack__num">01</span>
+          <div class="stack__body"><span class="mono">Der Anfang</span><h3>Ein Satz.</h3><p>Du schilderst kurz, worum es geht. So viel oder so wenig, wie du möchtest. Ein Briefing brauchen wir nicht.</p></div>
+          <svg class="stack__art" viewBox="0 0 220 170" aria-hidden="true">
+            <rect x="10" y="20" width="200" height="130" rx="6" /><path d="M10 26 L110 92 L210 26" />
+            <line x1="40" y1="118" x2="120" y2="118" /><rect class="sa-fill" x="126" y="110" width="8" height="16" />
+          </svg>
+        </article>
+        <article class="stack__card" style="--i:1">
+          <span class="stack__num">02</span>
+          <div class="stack__body"><span class="mono">Kurz danach</span><h3>Ein Gespräch.</h3><p>Wir melden uns und klären, was am Ende stehen soll. Wie wir dorthin kommen, ist unsere Sache.</p></div>
+          <svg class="stack__art" viewBox="0 0 220 170" aria-hidden="true">
+            <path d="M14 20 h110 v60 h-60 l-24 22 v-22 h-26 z" /><path d="M96 92 h110 v56 h-26 v20 l-22 -20 h-62 z" />
+            <circle class="sa-fill" cx="48" cy="50" r="5" /><circle class="sa-fill" cx="68" cy="50" r="5" /><circle class="sa-fill" cx="88" cy="50" r="5" />
+          </svg>
+        </article>
+        <article class="stack__card" style="--i:2">
+          <span class="stack__num">03</span>
+          <div class="stack__body"><span class="mono">Im Hintergrund</span><h3>Das Netzwerk.</h3><p>Wir holen die Menschen dazu, die es lösen können. Wer das ist und wie viele, entscheiden wir. Du sprichst weiter nur mit uns.</p></div>
+          <svg class="stack__art" viewBox="0 0 220 170" data-anim="net" aria-hidden="true">
+            <line x1="110" y1="85" x2="30" y2="30" /><line x1="110" y1="85" x2="190" y2="30" /><line x1="110" y1="85" x2="20" y2="110" />
+            <line x1="110" y1="85" x2="200" y2="110" /><line x1="110" y1="85" x2="70" y2="155" /><line x1="110" y1="85" x2="150" y2="155" />
+            <circle cx="110" cy="85" r="18" />
+            <circle class="sa-fill" cx="30" cy="30" r="8" /><circle class="sa-fill" cx="190" cy="30" r="8" /><circle class="sa-fill" cx="20" cy="110" r="8" />
+            <circle class="sa-fill" cx="200" cy="110" r="8" /><circle class="sa-fill" cx="70" cy="155" r="8" /><circle class="sa-fill" cx="150" cy="155" r="8" />
+          </svg>
+        </article>
+        <article class="stack__card" style="--i:3">
+          <span class="stack__num">04</span>
+          <div class="stack__body"><span class="mono">Das Ergebnis</span><h3>Gelöst.</h3><p>Du bekommst das Ergebnis. Weg und Umfang passen wir dem Problem an. Und danach vergessen wir, dass es dich gab.</p></div>
+          <svg class="stack__art" viewBox="0 0 220 170" aria-hidden="true">
+            <path d="M110 10 L205 160 L15 160 Z" /><path d="M72 104 L100 130 L150 74" />
+          </svg>
+        </article>
+      </div>
+    </section>
+
+    <!-- ANFRAGE -->
+    <section class="cta-band cta-band--home" id="anfrage">
+      <p class="label">[07] — Anfrage</p>
+      <h2 class="h2 h2--xl">
+        <span class="line"><span class="line__inner">Erzähl uns nicht alles.</span></span>
+        <span class="line"><span class="line__inner"><em class="serif">Nur das Problem.</em></span></span>
+      </h2>
+      <p>Keine Preisliste, weil jedes Problem anders ist. Budgets beginnen bei 2.500 €. Wir melden uns innerhalb von 24 Stunden, sieben Tage die Woche.</p>
+      <a href="anfrage.html" class="btn btn--peach btn--xl">Problem schildern <span class="btn__arrow">→</span></a>
+    </section>
+
+  </main>
+
+  <div data-include="footer"></div>
+
+  <script src="../assets/js/config.js?v=36"></script>
+  <script src="../assets/js/layout.js?v=36"></script>
+  <script src="../assets/vendor/gsap.min.js"></script>
+  <script src="../assets/vendor/ScrollTrigger.min.js"></script>
+  <script src="../assets/vendor/lenis.min.js"></script>
+  <script src="../assets/js/network.js?v=36"></script>
+  <script src="../assets/js/assist.js?v=36"></script>
+  <script src="../assets/js/main.js?v=36"></script>
+</body>
+</html>

@@ -1,8 +1,22 @@
 # ThreeApesGroup – Website
 
-Reine HTML/CSS/JS-Seite ohne Build-Schritt.
+Reine HTML/CSS/JS-Seite ohne Build-Server. Live: https://threeapesgroup.com (GitHub Pages, Domain über `CNAME`).
+DNS liegt bei Febas: 4× A und 4× AAAA auf GitHub, `www` als CNAME auf `ninoborn1-stack.github.io`. Mail-Einträge (MX, SPF, DKIM `mail._domainkey`, DMARC `_dmarc`) gehören Febas und bleiben unverändert.
 
-Live: https://threeapesgroup.com (GitHub Pages, Domain über die Datei `CNAME`). DNS liegt bei Febas: 4× A und 4× AAAA auf GitHub, `www` als CNAME auf `ninoborn1-stack.github.io`. Die Mail-Einträge (MX, SPF, mail, imap, smtp) gehören Febas und bleiben unverändert.
+## Aufbau und Sprachen
+- **Englisch ist die Standardsprache** und liegt im Hauptordner (`index.html`, `netzwerk.html`, …). **Deutsch** liegt unter `de/`. Alte `/en/`-Adressen leiten auf die englischen Seiten weiter.
+- **Quelle sind die deutschen Seiten in `_src/`.** Die Seiten im Hauptordner, in `de/` und `en/` werden erzeugt, nie von Hand bearbeiten.
+  - `_src/index.html` (Startseite) wird direkt bearbeitet.
+  - Die Unterseiten erzeugt `_build/build_pages.py` (Formular: `_build/partials/form.html`).
+- Nach jeder Änderung:
+  ```bash
+  python3 _build/build_pages.py
+  python3 _i18n/build_site.py
+  ```
+  `build_site.py` nennt jeden neuen deutschen Text ohne Übersetzung. Diesen in `_i18n/en.json` eintragen (`"Deutsch": "English"`) und erneut bauen. Sätze mit Auszeichnung (`<em>` usw.) stehen dort als ganzer HTML-Block.
+- Texte aus den Skripten (Menü, Footer, Formular, Problem-Assistent, Netzwerk) stehen in `assets/js/en.js`.
+- Schriften (`assets/fonts`, `assets/css/fonts.css`) und Skripte (`assets/vendor`) liegen lokal, keine Verbindung zu Google oder CDNs.
+- Ordner mit `_` liefert GitHub Pages nicht aus. `_server/` ist das Anfrageformular für den Febas-Webspace (siehe `_server/README.md`).
 
 ## Starten
 ```bash
@@ -11,6 +25,8 @@ python3 -m http.server 5173
 Danach http://localhost:5173 öffnen.
 
 ## Seiten
+Quellen in `_src/`, veröffentlicht als Englisch (Hauptordner) und Deutsch (`de/`):
+
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Startseite: Loader, Hero mit Suchfeld, Manifest mit Schutz-Dreieck, „Wir sind alle“, Protokoll, Netzwerk mit Kooperationen, Leistungen, Akten, Partner, Prozess, Anfrage-Hinweis (führt zu `anfrage.html`) |
@@ -46,16 +62,9 @@ Danach http://localhost:5173 öffnen.
 - `netzwerk.html?problem=Text` schickt den Text direkt durchs Netzwerk.
 
 ## Nach Änderungen
-Die Dateien werden mit `?v=13` eingebunden. Nach größeren Änderungen die Zahl in allen HTML-Dateien erhöhen, damit Browser die neue Version laden.
+CSS/JS werden mit `?v=…` eingebunden. Nach Änderungen die Zahl in `_build/build_pages.py` (`V = …`) und in `_src/index.html` erhöhen, damit Browser die neue Version laden.
 
 ## Problem-Assistent und Suche
 - Datei: `assets/js/assist.js`. Läuft komplett im Browser, ohne Server.
 - Jedes Suchfeld (Startseite, Netzwerk, Leistungen, Anfrage) zeigt beim Tippen Vorschläge und nach dem Absenden eine Einschätzung: Zeit bis zur Lösung, Aufwand, beteiligte Köpfe, Vorgehen, Rückfragen.
 - Falltypen, Zeitrahmen und Stichwörter stehen oben in `assist.js` unter `CASES`. **`n` (Anzahl vergleichbarer Aufgaben) und `d` (Tage) sind Platzhalter: echte Erfahrungswerte eintragen.**
-
-## Zweisprachig (Deutsch / Englisch)
-- Deutsch ist die Quelle. Die englischen Seiten liegen unter `en/` und werden erzeugt, nie von Hand bearbeitet.
-- Nach jeder Textänderung an einer deutschen Seite: `python3 _i18n/build_en.py`. Das Skript nennt jeden neuen deutschen Text ohne Übersetzung. Diesen in `_i18n/en.json` eintragen (`"Deutsch": "English"`) und erneut bauen.
-- Sätze mit Auszeichnung (z. B. `<em>`), die sich Stück für Stück schlecht übersetzen, stehen in `en.json` als ganzer HTML-Block.
-- Texte aus den Skripten (Menü, Footer, Formular-Meldungen, Problem-Assistent, Netzwerk-Grafik) stehen in `assets/js/en.js`.
-- Der Umschalter DE / EN oben rechts führt immer auf dieselbe Seite in der anderen Sprache. `hreflang` setzt das Skript automatisch.

@@ -26,7 +26,7 @@ window.TAG = { hash: (c) => cyrb53(String(c).trim().toUpperCase()) };
 
 const store = {
   get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
-  set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* egal */ } },
+  set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) { /* Speicher nicht verfügbar */ } },
 };
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
