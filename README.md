@@ -43,7 +43,7 @@ Quellen in `_src/`, veröffentlicht als Englisch (Hauptordner) und Deutsch (`de/
 - **Navigation, Menü, Footer**: nur in `assets/js/layout.js`. Gilt für alle Seiten.
 - **Sondercodes, Formular-Ziel, E-Mail, Netzwerk-Knoten und Stichwörter**: `assets/js/config.js`.
   - Neuer Sondercode: in der Browser-Konsole `TAG.hash("NEUERCODE")` eingeben und den Wert in `CONFIG.codes` eintragen.
-  - `formEndpoint`: z. B. eine Formspree-URL. Leer = das Formular öffnet das Mailprogramm.
+  - `formEndpoint`: `https://form.threeapesgroup.com/anfrage.php` (Skript auf dem Febas-Webspace, siehe `_server/README.md`). Leer = das Formular öffnet das Mailprogramm.
 - **Farben und Design**: `assets/css/style.css`, ganz oben in `:root`.
 - **Animationen**: `assets/js/main.js` (Auge, Reveals, Scramble), `assets/js/network.js` (Netzwerk).
 - Platzhalter sind im HTML mit `PLATZHALTER` markiert.
