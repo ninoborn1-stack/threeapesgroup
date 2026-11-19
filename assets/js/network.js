@@ -32,7 +32,7 @@ window.initNetwork = function (svg, opts = {}) {
 
   let S = null;          // aktueller Aufbau
   let reveal = opts.reveal ?? 0;
-  let inView = false, mobileBuilt = null;
+  let inView = false, mobileBuilt = null, rings = [];
   let speed = 1, speedTarget = 1;
   const pulses = [];
 
@@ -103,8 +103,10 @@ window.initNetwork = function (svg, opts = {}) {
     const ring2 = el("circle", { class: "nw-core-ring nw-core-ring--b", cx, cy, r: coreR + 34, "stroke-dasharray": "40 14 4 14" }, gCore);
     el("circle", { class: "nw-core-bg", cx, cy, r: coreR }, gCore);
     el("image", { href: window.BASE + "assets/img/emblem.webp", x: cx - coreR * .8, y: cy - coreR * .56, width: coreR * 1.6, height: coreR * 1.1, preserveAspectRatio: "xMidYMid meet" }, gCore);
-    gsap.to(ring1, { rotate: 360, svgOrigin: `${cx} ${cy}`, duration: 26, repeat: -1, ease: "none" });
-    gsap.to(ring2, { rotate: -360, svgOrigin: `${cx} ${cy}`, duration: 40, repeat: -1, ease: "none" });
+    // Ringe drehen sich nur, solange die Grafik sichtbar ist
+    rings.forEach((t) => t.kill());
+    rings = [gsap.to(ring1, { rotate: 360, svgOrigin: `${cx} ${cy}`, duration: 26, repeat: -1, ease: "none", paused: !inView }),
+             gsap.to(ring2, { rotate: -360, svgOrigin: `${cx} ${cy}`, duration: 40, repeat: -1, ease: "none", paused: !inView })];
 
     S = { W, H, cx, cy, rI, rO, inner, outer, nodes: [...inner, ...outer], links, center, gPulse, gCore, gWaves, coreR, rotI: 0, rotO: 0, mobile };
     pulses.length = 0;
@@ -206,7 +208,7 @@ window.initNetwork = function (svg, opts = {}) {
   };
   requestAnimationFrame(tick);
 
-  ScrollTrigger.create({ trigger: svg, start: "top bottom", end: "bottom top", onToggle: (s) => (inView = s.isActive) });
+  ScrollTrigger.create({ trigger: svg, start: "top bottom", end: "bottom top", onToggle: (s) => { inView = s.isActive; rings.forEach((t) => (inView ? t.play() : t.pause())); } });
   if (opts.scrub !== false) {
     ScrollTrigger.create({
       trigger: svg, start: "top 85%", end: "center 55%", scrub: 1,

@@ -4,7 +4,7 @@ Danach: python3 _i18n/build_site.py  ->  Englisch im Hauptordner, Deutsch unter 
 import re, os
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(os.path.dirname(HERE), "_src")   # deutsche Quellseiten; daraus baut _i18n/build_site.py die Website
-V = "37"
+V = "40"
 FORM = open(os.path.join(HERE, "partials", "form.html")).read()
 
 U = lambda pid, w=1200: f"https://images.unsplash.com/{pid}?w={w}&q=75"

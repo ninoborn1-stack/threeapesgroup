@@ -179,6 +179,7 @@ function initForm() {
       Sondercode: activeCode ? "ja" : "nein", Problem: fd.get("message"),
     };
     const btn = form.querySelector('button[type="submit"]');
+    let sent = null;
 
     try {
       if (CONFIG.formEndpoint) {
@@ -194,29 +195,51 @@ function initForm() {
         if (btn) btn.disabled = false;
         if (res.status === 429) { errorEl.textContent = T("Zu viele Anfragen in kurzer Zeit. Bitte versuch es später noch einmal oder schreib uns direkt."); return; }
         if (!res.ok) throw new Error("HTTP " + res.status);
+        const out = await res.json().catch(() => ({}));
+        sent = { ref: out.ref || "", email: payload.email };
       } else {
         const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join("\n");
         window.location.href = `mailto:${CONFIG.mailTo}?subject=${encodeURIComponent("Anfrage: " + data.Art + " / " + data.Budget)}&body=${encodeURIComponent(body)}`;
       }
-      showSuccess();
+      showSuccess(sent);
     } catch (err) {
       if (btn) btn.disabled = false;
       errorEl.textContent = T("Das hat leider nicht geklappt. Bitte versuch es noch einmal oder schreib uns direkt.");
     }
   });
 
-  function showSuccess() {
+  // Nach dem Absenden: Formular zuklappen, Bestätigung an seine Stelle, dorthin scrollen
+  function showSuccess(sent) {
     const s = $("#formSuccess");
+    const ref = $("#fsRef"), mail = $("#fsMail");
+    if (sent && sent.ref) { ref.querySelector("b").textContent = sent.ref; ref.hidden = false; } else ref.hidden = true;
+    if (sent && sent.email) { mail.querySelector("b").textContent = sent.email; mail.hidden = false; } else mail.hidden = true;
+    form.classList.add("is-sent");
     s.classList.add("is-visible");
-    if (!hasGSAP) return;
+    const top = form;
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    if (window.lenisInstance) lenisInstance.scrollTo(top, { offset: -110, duration: 1.1, force: true });
+    else top.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+    setTimeout(() => s.focus({ preventScroll: true }), 400);
+    if (!hasGSAP || reduceMotion) return;
     const tri = s.querySelector(".fs-tri"), chk = s.querySelector(".fs-check");
     [tri, chk].forEach((p) => { const L = p.getTotalLength(); gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
     gsap.timeline()
       .from(s, { clipPath: "inset(0 0 100% 0)", duration: .8, ease: "expo.inOut" })
       .to(tri, { strokeDashoffset: 0, duration: 1, ease: "power2.inOut" }, "-=.2")
       .to(chk, { strokeDashoffset: 0, duration: .6, ease: "power3.out" }, "-=.3")
-      .from(s.querySelectorAll("h3, p"), { y: 40, opacity: 0, stagger: .1, duration: .8, ease: "expo.out" }, "-=.6");
+      .from(s.querySelectorAll("h3, p:not([hidden]), .fs-actions"), { y: 40, opacity: 0, stagger: .1, duration: .8, ease: "expo.out" }, "-=.6");
   }
+  // "Weitere Anfrage": Formular leeren und wieder zeigen
+  const again = $("#fsAgain");
+  if (again) again.addEventListener("click", () => {
+    form.reset();
+    form.classList.remove("is-sent");
+    $("#formSuccess").classList.remove("is-visible");
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+    const top = form.closest("section") || form;
+    if (window.lenisInstance) lenisInstance.scrollTo(top, { offset: -90, duration: .9, force: true });
+  });
 }
 
 /* Menü (ohne GSAP lauffähig) */
@@ -374,6 +397,14 @@ if (!hasGSAP) {
 } else {
   gsap.registerPlugin(ScrollTrigger);
   initAnimations();
+  initOffscreenPause();
+}
+
+/* CSS-Daueranimationen (Icons, atmende Punkte) laufen nur in sichtbaren Abschnitten */
+function initOffscreenPause() {
+  if (!("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver((list) => list.forEach((e) => e.target.classList.toggle("is-offscreen", !e.isIntersecting)), { rootMargin: "200px 0px" });
+  $$("main > section, main > div, .hero, .phero, footer").forEach((el) => io.observe(el));
 }
 
 function initAnimations() {
@@ -843,7 +874,8 @@ function initVault() {
   void final;
 
   // Problem atmet
-  halo.forEach((h, i) => gsap.fromTo(h, { attr: { r: 16 }, opacity: .5 }, { attr: { r: 60 }, opacity: 0, duration: 3.2, ease: "power1.out", repeat: -1, delay: i * 1.6 }));
+  const haloTw = halo.map((h, i) => gsap.fromTo(h, { attr: { r: 16 }, opacity: .5 }, { attr: { r: 60 }, opacity: 0, duration: 3.2, ease: "power1.out", repeat: -1, delay: i * 1.6, paused: true }));
+  ScrollTrigger.create({ trigger: svg, start: "top bottom", end: "bottom top", onToggle: (st) => haloTw.forEach((t) => (st.isActive ? t.play() : t.pause())) });
 
   // Fragen von außen
   const QS = ["Wer?", "Kunde?", "Name?", "Wie viel?", "Worum geht's?", "Für wen?", "Was genau?", "Wer noch?"].map(T);
